@@ -8,105 +8,95 @@
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{--bg:#f5f4f0;--dark:#111;--accent:#e85d3a}
 html{scroll-behavior:smooth}
-/* ✅ System font — zero network request */
 body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;background:var(--bg);color:var(--dark);overflow-x:hidden}
 
-/* NAV */
-nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:20px 48px;backdrop-filter:blur(12px);background:rgba(245,244,240,.85)}
+/* ── NAV ── */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:16px 24px;backdrop-filter:blur(12px);background:rgba(245,244,240,.9)}
 .logo{font-weight:800;font-size:1rem;letter-spacing:-.02em}
-.nav-links{display:flex;gap:32px;list-style:none}
-.nav-links a{font-size:.85rem;color:#555;text-decoration:none;transition:color .2s}
+.nav-links{display:flex;gap:20px;list-style:none}
+.nav-links a{font-size:.8rem;color:#555;text-decoration:none;transition:color .2s}
 .nav-links a:hover{color:var(--dark)}
 
-/* HERO */
-.hero{min-height:100vh;display:flex;align-items:center;justify-content:center;position:relative;padding:120px 48px 80px;overflow:hidden}
-
-/* Floating tags */
-.tag{position:absolute;background:var(--dark);color:#fff;font-size:.75rem;font-weight:600;padding:7px 16px;border-radius:99px;white-space:nowrap;animation:floatTag 6s ease-in-out infinite;pointer-events:none;z-index:5}
-.tag.light{background:#fff;color:var(--dark);box-shadow:0 2px 16px rgba(0,0,0,.1)}
-.tag.accent{background:var(--accent);color:#fff}
-@keyframes floatTag{0%,100%{transform:translateY(0) rotate(-2deg)}50%{transform:translateY(-12px) rotate(2deg)}}
-.t1{top:18%;left:8%;animation-delay:0s}
-.t2{top:25%;right:12%;animation-delay:1.2s}
-.t3{top:65%;left:6%;animation-delay:2.1s}
-.t4{bottom:20%;right:8%;animation-delay:.7s}
-.t5{top:12%;left:50%;animation-delay:1.8s}
-
-/* Hero layout */
-.hero-inner{display:flex;align-items:center;gap:80px;max-width:1100px;width:100%;position:relative;z-index:2}
-.hero-left{flex:1;min-width:0}
-.eyebrow{font-size:.75rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#888;margin-bottom:20px}
+/* ── HERO ── */
+.hero{min-height:100vh;display:flex;align-items:center;justify-content:center;position:relative;padding:100px 24px 60px;overflow:hidden}
+.hero-inner{display:flex;align-items:center;gap:60px;max-width:1100px;width:100%;position:relative;z-index:2;flex-wrap:wrap}
+.hero-left{flex:1;min-width:280px}
+.eyebrow{font-size:.72rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#888;margin-bottom:16px}
 
 /* Word reveal */
-.hero-title{font-size:clamp(2.8rem,6vw,5rem);font-weight:900;line-height:1.05;letter-spacing:-.03em;margin-bottom:28px}
-.word{display:inline-block;overflow:hidden;margin-right:.25em}
+.hero-title{font-size:clamp(2.2rem,7vw,5rem);font-weight:900;line-height:1.05;letter-spacing:-.03em;margin-bottom:24px}
+.word{display:inline-block;overflow:hidden;margin-right:.22em}
 .word span{display:inline-block;transform:translateY(110%);opacity:0;animation:wordUp .7s cubic-bezier(.22,1,.36,1) forwards}
 .accent-word span{color:var(--accent)}
 
-.hero-bio{font-size:1rem;line-height:1.75;color:#555;max-width:420px;margin-bottom:36px;opacity:0;transform:translateY(20px);animation:fadeUp .8s ease forwards;animation-delay:1.2s}
-.hero-btns{display:flex;gap:16px;flex-wrap:wrap;opacity:0;transform:translateY(20px);animation:fadeUp .8s ease forwards;animation-delay:1.5s}
-.btn-dark{display:inline-flex;align-items:center;gap:8px;background:var(--dark);color:#fff;padding:13px 28px;border-radius:99px;font-size:.88rem;font-weight:600;text-decoration:none;transition:transform .2s,background .2s}
+.hero-bio{font-size:.95rem;line-height:1.75;color:#555;max-width:420px;margin-bottom:32px;opacity:0;transform:translateY(20px);animation:fadeUp .8s ease forwards;animation-delay:1.2s}
+.hero-btns{display:flex;gap:12px;flex-wrap:wrap;opacity:0;transform:translateY(20px);animation:fadeUp .8s ease forwards;animation-delay:1.5s}
+.btn-dark{display:inline-flex;align-items:center;gap:8px;background:var(--dark);color:#fff;padding:12px 24px;border-radius:99px;font-size:.85rem;font-weight:600;text-decoration:none;transition:transform .2s,background .2s}
 .btn-dark:hover{transform:translateY(-2px);background:#333}
-.btn-outline{display:inline-flex;align-items:center;gap:8px;border:1.5px solid var(--dark);color:var(--dark);padding:13px 28px;border-radius:99px;font-size:.88rem;font-weight:600;text-decoration:none;transition:transform .2s,background .2s,color .2s}
+.btn-outline{display:inline-flex;align-items:center;gap:8px;border:1.5px solid var(--dark);color:var(--dark);padding:12px 24px;border-radius:99px;font-size:.85rem;font-weight:600;text-decoration:none;transition:transform .2s,background .2s,color .2s}
 .btn-outline:hover{background:var(--dark);color:#fff;transform:translateY(-2px)}
 
-/* FANNED CARDS — ✅ CSS gradients, no images needed */
-.cards-area{flex:0 0 420px;position:relative;height:420px}
-.card-stack{position:relative;width:260px;height:320px;margin:60px auto 0;cursor:pointer}
-.art-card{position:absolute;width:220px;height:280px;border-radius:18px;overflow:hidden;box-shadow:0 12px 40px rgba(0,0,0,.18);transition:transform .5s cubic-bezier(.34,1.56,.64,1),box-shadow .4s ease;display:flex;align-items:center;justify-content:center}
-.art-card .card-label{color:rgba(255,255,255,.7);font-weight:700;font-size:.8rem;letter-spacing:.08em;text-transform:uppercase}
+/* ── FLOATING TAGS ── */
+.tag{position:absolute;background:var(--dark);color:#fff;font-size:.72rem;font-weight:600;padding:6px 14px;border-radius:99px;white-space:nowrap;animation:floatTag 6s ease-in-out infinite;pointer-events:none;z-index:5}
+.tag.light{background:#fff;color:var(--dark);box-shadow:0 2px 16px rgba(0,0,0,.1)}
+.tag.accent{background:var(--accent);color:#fff}
+@keyframes floatTag{0%,100%{transform:translateY(0) rotate(-2deg)}50%{transform:translateY(-10px) rotate(2deg)}}
+.t1{top:12%;left:4%;animation-delay:0s}
+.t2{top:20%;right:4%;animation-delay:1.2s}
+.t3{top:70%;left:3%;animation-delay:2.1s}
+.t4{bottom:15%;right:4%;animation-delay:.7s}
+.t5{top:8%;left:45%;animation-delay:1.8s}
 
-/* Card gradient colours */
-.art-card:nth-child(1){background:linear-gradient(135deg,#f97316,#ef4444);transform:rotate(-18deg) translate(-60px,20px);z-index:1}
-.art-card:nth-child(2){background:linear-gradient(135deg,#8b5cf6,#ec4899);transform:rotate(-9deg) translate(-20px,10px);z-index:2}
-.art-card:nth-child(3){background:linear-gradient(135deg,#06b6d4,#3b82f6);transform:rotate(0deg) translate(10px,0px);z-index:3}
-.art-card:nth-child(4){background:linear-gradient(135deg,#22c55e,#10b981);transform:rotate(10deg) translate(50px,10px);z-index:2}
-.art-card:nth-child(5){background:linear-gradient(135deg,#f59e0b,#f97316);transform:rotate(20deg) translate(90px,20px);z-index:1}
+/* ── FANNED CARDS ── */
+.cards-area{flex:0 0 340px;position:relative;height:360px;display:flex;flex-direction:column;align-items:center}
+.card-stack{position:relative;width:220px;height:280px;margin:40px auto 0;cursor:pointer}
+.art-card{position:absolute;width:180px;height:230px;border-radius:16px;overflow:hidden;box-shadow:0 10px 32px rgba(0,0,0,.18);transition:transform .5s cubic-bezier(.34,1.56,.64,1),box-shadow .4s ease;display:flex;align-items:center;justify-content:center}
+.card-label{color:rgba(255,255,255,.8);font-weight:700;font-size:.75rem;letter-spacing:.08em;text-transform:uppercase}
+.art-card:nth-child(1){background:linear-gradient(135deg,#f97316,#ef4444);transform:rotate(-18deg) translate(-50px,16px);z-index:1}
+.art-card:nth-child(2){background:linear-gradient(135deg,#8b5cf6,#ec4899);transform:rotate(-9deg) translate(-16px,8px);z-index:2}
+.art-card:nth-child(3){background:linear-gradient(135deg,#06b6d4,#3b82f6);transform:rotate(0deg) translate(8px,0);z-index:3}
+.art-card:nth-child(4){background:linear-gradient(135deg,#22c55e,#10b981);transform:rotate(9deg) translate(40px,8px);z-index:2}
+.art-card:nth-child(5){background:linear-gradient(135deg,#f59e0b,#f97316);transform:rotate(18deg) translate(76px,16px);z-index:1}
+.card-stack:hover .art-card:nth-child(1){transform:rotate(-22deg) translate(-90px,24px) scale(1.05);box-shadow:0 18px 50px rgba(0,0,0,.22)}
+.card-stack:hover .art-card:nth-child(2){transform:rotate(-11deg) translate(-40px,8px) scale(1.05);box-shadow:0 18px 50px rgba(0,0,0,.22)}
+.card-stack:hover .art-card:nth-child(3){transform:rotate(0deg) translate(8px,-8px) scale(1.1);box-shadow:0 24px 60px rgba(0,0,0,.28);z-index:6}
+.card-stack:hover .art-card:nth-child(4){transform:rotate(11deg) translate(56px,8px) scale(1.05);box-shadow:0 18px 50px rgba(0,0,0,.22)}
+.card-stack:hover .art-card:nth-child(5){transform:rotate(22deg) translate(110px,24px) scale(1.05);box-shadow:0 18px 50px rgba(0,0,0,.22)}
+.hint-text{text-align:center;font-size:.7rem;color:#aaa;margin-top:12px;letter-spacing:.06em}
 
-/* Hover spread */
-.card-stack:hover .art-card:nth-child(1){transform:rotate(-22deg) translate(-110px,30px) scale(1.05);box-shadow:0 20px 60px rgba(0,0,0,.22)}
-.card-stack:hover .art-card:nth-child(2){transform:rotate(-11deg) translate(-50px,10px) scale(1.05);box-shadow:0 20px 60px rgba(0,0,0,.22)}
-.card-stack:hover .art-card:nth-child(3){transform:rotate(0deg) translate(10px,-10px) scale(1.1);box-shadow:0 28px 70px rgba(0,0,0,.28);z-index:6}
-.card-stack:hover .art-card:nth-child(4){transform:rotate(11deg) translate(70px,10px) scale(1.05);box-shadow:0 20px 60px rgba(0,0,0,.22)}
-.card-stack:hover .art-card:nth-child(5){transform:rotate(22deg) translate(130px,30px) scale(1.05);box-shadow:0 20px 60px rgba(0,0,0,.22)}
-
-.hint-text{text-align:center;font-size:.72rem;color:#aaa;margin-top:16px;letter-spacing:.06em}
-
-/* FLOATING ICONS */
+/* ── FLOATING ICONS ── */
 .float-icons{position:absolute;inset:0;pointer-events:none;z-index:1}
-.fi{position:absolute;opacity:.15;animation:floatIcon 8s ease-in-out infinite;font-style:normal}
-@keyframes floatIcon{0%,100%{transform:translateY(0) rotate(0deg)}50%{transform:translateY(-20px) rotate(15deg)}}
-.fi:nth-child(1){top:15%;left:22%;animation-delay:0s;font-size:1.4rem}
-.fi:nth-child(2){top:35%;left:15%;animation-delay:1s;font-size:1rem}
-.fi:nth-child(3){bottom:25%;left:28%;animation-delay:2s;font-size:1.2rem}
-.fi:nth-child(4){top:10%;right:30%;animation-delay:1.5s;font-size:.9rem}
-.fi:nth-child(5){bottom:15%;right:25%;animation-delay:.5s;font-size:1.3rem}
-.fi:nth-child(6){top:55%;left:10%;animation-delay:3s;font-size:1rem}
+.fi{position:absolute;opacity:.12;animation:floatIcon 8s ease-in-out infinite;font-style:normal}
+@keyframes floatIcon{0%,100%{transform:translateY(0) rotate(0deg)}50%{transform:translateY(-18px) rotate(15deg)}}
+.fi:nth-child(1){top:15%;left:22%;font-size:1.2rem;animation-delay:0s}
+.fi:nth-child(2){top:35%;left:15%;font-size:.9rem;animation-delay:1s}
+.fi:nth-child(3){bottom:25%;left:28%;font-size:1rem;animation-delay:2s}
+.fi:nth-child(4){top:10%;right:30%;font-size:.8rem;animation-delay:1.5s}
+.fi:nth-child(5){bottom:15%;right:25%;font-size:1.1rem;animation-delay:.5s}
+.fi:nth-child(6){top:55%;left:10%;font-size:.9rem;animation-delay:3s}
 
-/* SECTIONS */
-section{padding:100px 48px;max-width:1100px;margin:0 auto}
-.section-label{font-size:.75rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#aaa;margin-bottom:16px}
-.section-title{font-size:clamp(2rem,4vw,3.2rem);font-weight:900;letter-spacing:-.03em;line-height:1.1;margin-bottom:48px}
+/* ── SECTIONS ── */
+section{padding:80px 24px;max-width:1100px;margin:0 auto}
+.section-label{font-size:.72rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#aaa;margin-bottom:14px}
+.section-title{font-size:clamp(1.8rem,4vw,3rem);font-weight:900;letter-spacing:-.03em;line-height:1.1;margin-bottom:40px}
 .section-title em{color:var(--accent);font-style:normal}
 
 /* Skills */
-.skills-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:16px}
-.skill-card{background:#fff;border-radius:16px;padding:24px;border:1.5px solid #e8e6e0;transition:transform .3s ease,box-shadow .3s ease;opacity:0;transform:translateY(30px)}
-.skill-card:hover{transform:translateY(-6px)!important;box-shadow:0 16px 48px rgba(0,0,0,.08)}
-.skill-icon{font-size:1.6rem;margin-bottom:12px}
-.skill-name{font-weight:700;font-size:.95rem;margin-bottom:4px}
-.skill-level{font-size:.78rem;color:#888}
+.skills-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px}
+.skill-card{background:#fff;border-radius:14px;padding:20px;border:1.5px solid #e8e6e0;transition:transform .3s,box-shadow .3s;opacity:0;transform:translateY(30px)}
+.skill-card:hover{transform:translateY(-4px)!important;box-shadow:0 14px 40px rgba(0,0,0,.08)}
+.skill-icon{font-size:1.4rem;margin-bottom:10px}
+.skill-name{font-weight:700;font-size:.9rem;margin-bottom:4px}
+.skill-level{font-size:.75rem;color:#888}
 
-/* Works — ✅ CSS gradient placeholders */
-.works-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-.work-card{border-radius:20px;overflow:hidden;aspect-ratio:3/4;position:relative;cursor:pointer;opacity:0;transform:scale(.96);display:flex;align-items:flex-end}
+/* Works */
+.works-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.work-card{border-radius:16px;overflow:hidden;aspect-ratio:3/4;position:relative;cursor:pointer;opacity:0;transform:scale(.96);display:flex;align-items:flex-end}
 .work-bg{position:absolute;inset:0;transition:transform .5s ease}
 .work-card:hover .work-bg{transform:scale(1.06)}
-.work-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.65) 0%,transparent 55%);opacity:0;transition:opacity .4s ease;display:flex;align-items:flex-end;padding:20px}
-.work-card:hover .work-overlay{opacity:1}
-.work-label{color:#fff;font-weight:700;font-size:.95rem;position:relative;z-index:2}
-
-/* Work card gradients */
+.work-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.65) 0%,transparent 55%);opacity:0;transition:opacity .4s;display:flex;align-items:flex-end;padding:16px}
+.work-card:hover .work-overlay,.work-card:active .work-overlay{opacity:1}
+.work-label{color:#fff;font-weight:700;font-size:.85rem;position:relative;z-index:2}
 .work-card:nth-child(1) .work-bg{background:linear-gradient(160deg,#667eea,#764ba2)}
 .work-card:nth-child(2) .work-bg{background:linear-gradient(160deg,#f093fb,#f5576c)}
 .work-card:nth-child(3) .work-bg{background:linear-gradient(160deg,#4facfe,#00f2fe)}
@@ -115,18 +105,79 @@ section{padding:100px 48px;max-width:1100px;margin:0 auto}
 .work-card:nth-child(6) .work-bg{background:linear-gradient(160deg,#a18cd1,#fbc2eb)}
 
 /* Contact */
-.contact-block{background:var(--dark);color:#fff;border-radius:28px;padding:72px;text-align:center;opacity:0;transform:translateY(40px)}
-.contact-block h2{font-size:clamp(2rem,4vw,3.2rem);font-weight:900;letter-spacing:-.03em;margin-bottom:16px}
-.contact-block p{color:#aaa;margin-bottom:40px;font-size:1rem}
-.btn-white{display:inline-flex;align-items:center;gap:8px;background:#fff;color:var(--dark);padding:14px 36px;border-radius:99px;font-weight:700;text-decoration:none;font-size:.95rem;transition:transform .2s,background .2s}
+.contact-block{background:var(--dark);color:#fff;border-radius:24px;padding:56px 32px;text-align:center;opacity:0;transform:translateY(40px)}
+.contact-block h2{font-size:clamp(1.8rem,4vw,3rem);font-weight:900;letter-spacing:-.03em;margin-bottom:14px}
+.contact-block p{color:#aaa;margin-bottom:36px;font-size:.95rem}
+.btn-white{display:inline-flex;align-items:center;gap:8px;background:#fff;color:var(--dark);padding:13px 32px;border-radius:99px;font-weight:700;text-decoration:none;font-size:.9rem;transition:transform .2s,background .2s}
 .btn-white:hover{transform:translateY(-3px);background:#f0eeea}
 
-footer{text-align:center;padding:40px 48px;font-size:.8rem;color:#aaa;border-top:1px solid #e8e6e0}
+footer{text-align:center;padding:32px 24px;font-size:.78rem;color:#aaa;border-top:1px solid #e8e6e0}
 
 @keyframes wordUp{to{transform:translateY(0);opacity:1}}
 @keyframes fadeUp{to{transform:translateY(0);opacity:1}}
 .reveal{transition:opacity .8s ease,transform .8s ease}
 .revealed{opacity:1!important;transform:none!important}
+
+/* ═══════════════════════════════
+   📱 MOBILE STYLES (max 768px)
+   ═══════════════════════════════ */
+@media(max-width:768px){
+
+  /* Nav */
+  nav{padding:14px 16px}
+  .nav-links{gap:14px}
+  .nav-links a{font-size:.75rem}
+
+  /* Hero — stack vertically */
+  .hero{padding:90px 16px 60px;align-items:flex-start}
+  .hero-inner{flex-direction:column;gap:40px;align-items:flex-start}
+  .hero-left{flex:none;width:100%}
+
+  /* Hide some floating tags on mobile (too cluttered) */
+  .t3,.t5{display:none}
+  .t1{top:8%;left:3%;font-size:.65rem;padding:5px 10px}
+  .t2{top:8%;right:3%;font-size:.65rem;padding:5px 10px}
+  .t4{bottom:auto;top:14%;right:3%;font-size:.65rem;padding:5px 10px}
+
+  /* Cards — centered, smaller */
+  .cards-area{flex:none;width:100%;height:280px;align-items:center}
+  .card-stack{width:180px;height:220px;margin:20px auto 0}
+  .art-card{width:140px;height:180px;border-radius:12px}
+  .art-card:nth-child(1){transform:rotate(-16deg) translate(-40px,12px)}
+  .art-card:nth-child(2){transform:rotate(-8deg) translate(-14px,6px)}
+  .art-card:nth-child(3){transform:rotate(0deg) translate(6px,0)}
+  .art-card:nth-child(4){transform:rotate(8deg) translate(34px,6px)}
+  .art-card:nth-child(5){transform:rotate(16deg) translate(64px,12px)}
+  .card-stack:hover .art-card:nth-child(1){transform:rotate(-20deg) translate(-70px,18px) scale(1.04)}
+  .card-stack:hover .art-card:nth-child(2){transform:rotate(-10deg) translate(-32px,6px) scale(1.04)}
+  .card-stack:hover .art-card:nth-child(3){transform:rotate(0deg) translate(6px,-8px) scale(1.08)}
+  .card-stack:hover .art-card:nth-child(4){transform:rotate(10deg) translate(46px,6px) scale(1.04)}
+  .card-stack:hover .art-card:nth-child(5){transform:rotate(20deg) translate(88px,18px) scale(1.04)}
+  .hint-text{font-size:.65rem}
+
+  /* Sections */
+  section{padding:60px 16px}
+
+  /* Skills — 2 columns on mobile */
+  .skills-grid{grid-template-columns:repeat(2,1fr)}
+
+  /* Works — 2 columns on mobile */
+  .works-grid{grid-template-columns:repeat(2,1fr)}
+
+  /* Contact */
+  .contact-block{padding:40px 20px;border-radius:20px}
+
+  footer{padding:24px 16px}
+}
+
+/* ── Very small phones (max 380px) ── */
+@media(max-width:380px){
+  .nav-links{gap:10px}
+  .nav-links li:nth-child(3),.nav-links li:nth-child(4){display:none}
+  .works-grid{grid-template-columns:1fr 1fr}
+  .skills-grid{grid-template-columns:1fr 1fr}
+  .hero-title{font-size:2rem}
+}
 </style>
 </head>
 <body>
@@ -157,9 +208,7 @@ footer{text-align:center;padding:40px 48px;font-size:.8rem;color:#aaa;border-top
     <div class="hero-left">
       <p class="eyebrow">Portfolio · 2025</p>
       <h1 class="hero-title" id="heroTitle"></h1>
-      <p class="hero-bio">
-        I craft clean, user-friendly web experiences — from pixel-perfect UIs to rock-solid APIs. Passionate about design systems, performance, and the little details that make products feel alive.
-      </p>
+      <p class="hero-bio">I craft clean, user-friendly web experiences — from pixel-perfect UIs to rock-solid APIs. Passionate about design systems, performance, and the little details that make products feel alive.</p>
       <div class="hero-btns">
         <a href="#works" class="btn-dark">View Works →</a>
         <a href="#contact" class="btn-outline">Say Hello</a>
@@ -174,7 +223,7 @@ footer{text-align:center;padding:40px 48px;font-size:.8rem;color:#aaa;border-top
         <div class="art-card"><span class="card-label">Mobile</span></div>
         <div class="art-card"><span class="card-label">Design</span></div>
       </div>
-      <p class="hint-text">✦ hover to spread</p>
+      <p class="hint-text">✦ tap to spread</p>
     </div>
   </div>
 </div>
@@ -205,7 +254,7 @@ footer{text-align:center;padding:40px 48px;font-size:.8rem;color:#aaa;border-top
   </div>
 </section>
 
-<section id="contact" style="padding-bottom:120px">
+<section id="contact" style="padding-bottom:100px">
   <div class="contact-block reveal">
     <h2>Gateway to great work.</h2>
     <p>Let's collaborate and build something remarkable together.</p>
@@ -216,29 +265,30 @@ footer{text-align:center;padding:40px 48px;font-size:.8rem;color:#aaa;border-top
 <footer>© 2025 Jane Doe · Built with love &amp; HTML</footer>
 
 <script>
-const words = ["Building","digital","experiences","that","feel","alive."];
-const title = document.getElementById('heroTitle');
-words.forEach((w,i) => {
-  const div = document.createElement('div');
-  div.className = 'word' + (w === 'alive.' ? ' accent-word' : '');
-  div.innerHTML = `<span style="animation-delay:${0.2+i*0.12}s">${w}</span>`;
-  title.appendChild(div);
+const words=["Building","digital","experiences","that","feel","alive."];
+const title=document.getElementById('heroTitle');
+words.forEach((w,i)=>{
+  const d=document.createElement('div');
+  d.className='word'+(w==='alive.'?' accent-word':'');
+  d.innerHTML=`<span style="animation-delay:${0.2+i*0.12}s">${w}</span>`;
+  title.appendChild(d);
   if(w==='digital'||w==='that') title.appendChild(document.createElement('br'));
 });
 
-const observer = new IntersectionObserver(entries => {
-  entries.forEach(e => {
+const obs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
     if(e.isIntersecting){
-      const items = e.target.querySelectorAll('.reveal');
-      if(items.length) items.forEach((el,i) => setTimeout(()=>el.classList.add('revealed'),i*100));
+      const items=e.target.querySelectorAll('.reveal');
+      if(items.length) items.forEach((el,i)=>setTimeout(()=>el.classList.add('revealed'),i*100));
       else e.target.classList.add('revealed');
     }
   });
-},{threshold:0.15});
-document.querySelectorAll('section').forEach(s=>observer.observe(s));
-document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+},{threshold:0.1});
+document.querySelectorAll('section').forEach(s=>obs.observe(s));
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
 
-const stack = document.getElementById('cardStack');
+// 3D tilt — desktop only
+const stack=document.getElementById('cardStack');
 stack.addEventListener('mousemove',e=>{
   const r=stack.getBoundingClientRect();
   const x=(e.clientX-r.left-r.width/2)/(r.width/2);
@@ -246,6 +296,13 @@ stack.addEventListener('mousemove',e=>{
   stack.style.transform=`perspective(800px) rotateY(${x*8}deg) rotateX(${-y*6}deg)`;
 });
 stack.addEventListener('mouseleave',()=>{stack.style.transform='perspective(800px) rotateY(0) rotateX(0)'});
+
+// Touch tap to spread cards on mobile
+let spread=false;
+stack.addEventListener('click',()=>{
+  spread=!spread;
+  stack.classList.toggle('hover-spread',spread);
+});
 </script>
 </body>
 </html>
