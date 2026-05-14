@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Jane Doe</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#f5f4f0;--dark:#111;--accent:#e85d3a}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--dark);overflow-x:hidden}
+
+/* ── NAV ── */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:20px 48px;backdrop-filter:blur(12px);background:rgba(245,244,240,.85)}
+.logo{font-weight:800;font-size:1rem;letter-spacing:-.02em}
+.nav-links{display:flex;gap:32px;list-style:none}
+.nav-links a{font-size:.85rem;color:#555;text-decoration:none;transition:color .2s}
+.nav-links a:hover{color:var(--dark)}
+
+/* ── HERO ── */
+.hero{min-height:100vh;display:flex;align-items:center;justify-content:center;position:relative;padding:120px 48px 80px;overflow:hidden}
+
+/* Floating tags */
+.tag{position:absolute;background:var(--dark);color:#fff;font-size:.75rem;font-weight:600;padding:7px 16px;border-radius:99px;white-space:nowrap;animation:floatTag 6s ease-in-out infinite;pointer-events:none;z-index:5}
+.tag.light{background:#fff;color:var(--dark);box-shadow:0 2px 16px rgba(0,0,0,.1)}
+.tag.accent{background:var(--accent);color:#fff}
+@keyframes floatTag{0%,100%{transform:translateY(0) rotate(-2deg)}50%{transform:translateY(-12px) rotate(2deg)}}
+.t1{top:18%;left:8%;animation-delay:0s}
+.t2{top:25%;right:12%;animation-delay:1.2s}
+.t3{top:65%;left:6%;animation-delay:2.1s}
+.t4{bottom:20%;right:8%;animation-delay:.7s}
+.t5{top:12%;left:50%;animation-delay:1.8s}
+
+/* Hero content */
+.hero-inner{display:flex;align-items:center;gap:80px;max-width:1100px;width:100%;position:relative;z-index:2}
+.hero-left{flex:1;min-width:0}
+.eyebrow{font-size:.75rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#888;margin-bottom:20px}
+
+/* Word-by-word reveal */
+.hero-title{font-size:clamp(2.8rem,6vw,5rem);font-weight:900;line-height:1.05;letter-spacing:-.03em;margin-bottom:28px}
+.word{display:inline-block;overflow:hidden;margin-right:.25em}
+.word span{display:inline-block;transform:translateY(110%);opacity:0;animation:wordUp .7s cubic-bezier(.22,1,.36,1) forwards}
+.accent-word{color:var(--accent)}
+
+.hero-bio{font-size:1rem;line-height:1.75;color:#555;max-width:420px;margin-bottom:36px;opacity:0;transform:translateY(20px);animation:fadeUp .8s ease forwards;animation-delay:1.2s}
+
+.hero-btns{display:flex;gap:16px;flex-wrap:wrap;opacity:0;transform:translateY(20px);animation:fadeUp .8s ease forwards;animation-delay:1.5s}
+.btn-dark{display:inline-flex;align-items:center;gap:8px;background:var(--dark);color:#fff;padding:13px 28px;border-radius:99px;font-size:.88rem;font-weight:600;text-decoration:none;transition:transform .2s,background .2s}
+.btn-dark:hover{transform:translateY(-2px);background:#333}
+.btn-outline{display:inline-flex;align-items:center;gap:8px;border:1.5px solid var(--dark);color:var(--dark);padding:13px 28px;border-radius:99px;font-size:.88rem;font-weight:600;text-decoration:none;transition:transform .2s,background .2s,color .2s}
+.btn-outline:hover{background:var(--dark);color:#fff;transform:translateY(-2px)}
+
+/* ── FANNED CARDS ── */
+.cards-area{flex:0 0 420px;position:relative;height:420px}
+.card-stack{position:relative;width:260px;height:320px;margin:60px auto 0;cursor:pointer}
+.art-card{position:absolute;width:220px;height:280px;border-radius:18px;overflow:hidden;box-shadow:0 12px 40px rgba(0,0,0,.18);transition:transform .5s cubic-bezier(.34,1.56,.64,1),box-shadow .4s ease}
+.art-card img{width:100%;height:100%;object-fit:cover;display:block}
+
+/* Default fanned positions */
+.art-card:nth-child(1){transform:rotate(-18deg) translate(-60px,20px);z-index:1}
+.art-card:nth-child(2){transform:rotate(-9deg) translate(-20px,10px);z-index:2}
+.art-card:nth-child(3){transform:rotate(0deg) translate(10px,0px);z-index:3}
+.art-card:nth-child(4){transform:rotate(10deg) translate(50px,10px);z-index:2}
+.art-card:nth-child(5){transform:rotate(20deg) translate(90px,20px);z-index:1}
+
+/* Hover: spread wider */
+.card-stack:hover .art-card:nth-child(1){transform:rotate(-22deg) translate(-110px,30px) scale(1.05);box-shadow:0 20px 60px rgba(0,0,0,.22)}
+.card-stack:hover .art-card:nth-child(2){transform:rotate(-11deg) translate(-50px,10px) scale(1.05);box-shadow:0 20px 60px rgba(0,0,0,.22)}
+.card-stack:hover .art-card:nth-child(3){transform:rotate(0deg) translate(10px,-10px) scale(1.1);box-shadow:0 28px 70px rgba(0,0,0,.28);z-index:6}
+.card-stack:hover .art-card:nth-child(4){transform:rotate(11deg) translate(70px,10px) scale(1.05);box-shadow:0 20px 60px rgba(0,0,0,.22)}
+.card-stack:hover .art-card:nth-child(5){transform:rotate(22deg) translate(130px,30px) scale(1.05);box-shadow:0 20px 60px rgba(0,0,0,.22)}
+
+.hint-text{text-align:center;font-size:.72rem;color:#aaa;margin-top:16px;letter-spacing:.06em}
+
+/* ── FLOATING ICONS ── */
+.float-icons{position:absolute;inset:0;pointer-events:none;z-index:1}
+.fi{position:absolute;opacity:.18;animation:floatIcon 8s ease-in-out infinite}
+@keyframes floatIcon{0%,100%{transform:translateY(0) rotate(0deg)}50%{transform:translateY(-20px) rotate(15deg)}}
+.fi:nth-child(1){top:15%;left:22%;animation-delay:0s;font-size:1.4rem}
+.fi:nth-child(2){top:35%;left:15%;animation-delay:1s;font-size:1rem}
+.fi:nth-child(3){bottom:25%;left:28%;animation-delay:2s;font-size:1.2rem}
+.fi:nth-child(4){top:10%;right:30%;animation-delay:1.5s;font-size:.9rem}
+.fi:nth-child(5){bottom:15%;right:25%;animation-delay:.5s;font-size:1.3rem}
+.fi:nth-child(6){top:55%;left:10%;animation-delay:3s;font-size:1rem}
+
+/* ── SCROLL SECTIONS ── */
+section{padding:100px 48px;max-width:1100px;margin:0 auto}
+.section-label{font-size:.75rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#aaa;margin-bottom:16px}
+.section-title{font-size:clamp(2rem,4vw,3.2rem);font-weight:900;letter-spacing:-.03em;line-height:1.1;margin-bottom:48px}
+.section-title em{color:var(--accent);font-style:normal}
+
+/* Skills grid */
+.skills-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:16px}
+.skill-card{background:#fff;border-radius:16px;padding:24px;border:1.5px solid #e8e6e0;transition:transform .3s ease,box-shadow .3s ease;opacity:0;transform:translateY(30px)}
+.skill-card:hover{transform:translateY(-6px);box-shadow:0 16px 48px rgba(0,0,0,.08)}
+.skill-icon{font-size:1.6rem;margin-bottom:12px}
+.skill-name{font-weight:700;font-size:.95rem;margin-bottom:4px}
+.skill-level{font-size:.78rem;color:#888}
+
+/* Works grid */
+.works-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.work-card{border-radius:20px;overflow:hidden;aspect-ratio:3/4;position:relative;cursor:pointer;opacity:0;transform:scale(.96)}
+.work-card img{width:100%;height:100%;object-fit:cover;transition:transform .5s ease}
+.work-card:hover img{transform:scale(1.08)}
+.work-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.7) 0%,transparent 50%);opacity:0;transition:opacity .4s ease;display:flex;align-items:flex-end;padding:20px}
+.work-card:hover .work-overlay{opacity:1}
+.work-label{color:#fff;font-weight:700;font-size:.95rem}
+
+/* Contact */
+.contact-block{background:var(--dark);color:#fff;border-radius:28px;padding:72px;text-align:center;opacity:0;transform:translateY(40px)}
+.contact-block h2{font-size:clamp(2rem,4vw,3.2rem);font-weight:900;letter-spacing:-.03em;margin-bottom:16px}
+.contact-block p{color:#aaa;margin-bottom:40px;font-size:1rem}
+.btn-white{display:inline-flex;align-items:center;gap:8px;background:#fff;color:var(--dark);padding:14px 36px;border-radius:99px;font-weight:700;text-decoration:none;font-size:.95rem;transition:transform .2s,background .2s}
+.btn-white:hover{transform:translateY(-3px);background:#f0eeea}
+
+/* Footer */
+footer{text-align:center;padding:40px 48px;font-size:.8rem;color:#aaa;border-top:1px solid #e8e6e0}
+
+/* Animations */
+@keyframes wordUp{to{transform:translateY(0);opacity:1}}
+@keyframes fadeUp{to{transform:translateY(0);opacity:1}}
+.reveal{transition:opacity .8s ease,transform .8s ease}
+.revealed{opacity:1!important;transform:none!important}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="logo">✦ Jane Doe</div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#works">Works</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- FLOATING ICONS background -->
+<div class="float-icons">
+  <span class="fi">⬡</span>
+  <span class="fi">◈</span>
+  <span class="fi">✦</span>
+  <span class="fi">⬢</span>
+  <span class="fi">◉</span>
+  <span class="fi">⟐</span>
+</div>
+
+<!-- HERO -->
+<div class="hero" id="about">
+
+  <!-- Floating social tags -->
+  <div class="tag t1">@janedoe</div>
+  <div class="tag light t2">✦ Open to work</div>
+  <div class="tag accent t3">New York</div>
+  <div class="tag light t4">Full-Stack Dev</div>
+  <div class="tag t5">5+ yrs exp</div>
+
+  <div class="hero-inner">
+    <div class="hero-left">
+      <p class="eyebrow">Portfolio · 2025</p>
+      <h1 class="hero-title" id="heroTitle"></h1>
+      <p class="hero-bio">
+        I craft clean, user-friendly web experiences — from pixel-perfect UIs to rock-solid APIs. Passionate about design systems, performance, and the little details that make products feel alive.
+      </p>
+      <div class="hero-btns">
+        <a href="#works" class="btn-dark">View Works →</a>
+        <a href="#contact" class="btn-outline">Say Hello</a>
+      </div>
+    </div>
+
+    <!-- Fanned card stack -->
+    <div class="cards-area">
+      <div class="card-stack" id="cardStack">
+        <div class="art-card"><img src="https://picsum.photos/seed/art1/400/500" alt=""/></div>
+        <div class="art-card"><img src="https://picsum.photos/seed/art2/400/500" alt=""/></div>
+        <div class="art-card"><img src="https://picsum.photos/seed/art5/400/500" alt=""/></div>
+        <div class="art-card"><img src="https://picsum.photos/seed/art3/400/500" alt=""/></div>
+        <div class="art-card"><img src="https://picsum.photos/seed/art4/400/500" alt=""/></div>
+      </div>
+      <p class="hint-text">✦ hover to spread</p>
+    </div>
+  </div>
+</div>
+
+<!-- SKILLS -->
+<section id="skills">
+  <p class="section-label">What I do</p>
+  <h2 class="section-title">Skills & <em>Tools</em></h2>
+  <div class="skills-grid">
+    <div class="skill-card reveal"><div class="skill-icon">⚛️</div><div class="skill-name">React</div><div class="skill-level">Advanced</div></div>
+    <div class="skill-card reveal"><div class="skill-icon">🟢</div><div class="skill-name">Node.js</div><div class="skill-level">Advanced</div></div>
+    <div class="skill-card reveal"><div class="skill-icon">🔷</div><div class="skill-name">TypeScript</div><div class="skill-level">Advanced</div></div>
+    <div class="skill-card reveal"><div class="skill-icon">🎨</div><div class="skill-name">Figma</div><div class="skill-level">Intermediate</div></div>
+    <div class="skill-card reveal"><div class="skill-icon">🐍</div><div class="skill-name">Python</div><div class="skill-level">Intermediate</div></div>
+    <div class="skill-card reveal"><div class="skill-icon">☁️</div><div class="skill-name">AWS</div><div class="skill-level">Intermediate</div></div>
+  </div>
+</section>
+
+<!-- WORKS -->
+<section id="works">
+  <p class="section-label">Selected works</p>
+  <h2 class="section-title">A place to display your <em>masterpiece.</em></h2>
+  <div class="works-grid">
+    <div class="work-card reveal"><img src="https://picsum.photos/seed/w1/400/530" alt=""/><div class="work-overlay"><span class="work-label">Brand Identity</span></div></div>
+    <div class="work-card reveal"><img src="https://picsum.photos/seed/w2/400/530" alt=""/><div class="work-overlay"><span class="work-label">UI Design</span></div></div>
+    <div class="work-card reveal"><img src="https://picsum.photos/seed/w3/400/530" alt=""/><div class="work-overlay"><span class="work-label">Web App</span></div></div>
+    <div class="work-card reveal"><img src="https://picsum.photos/seed/w4/400/530" alt=""/><div class="work-overlay"><span class="work-label">E-Commerce</span></div></div>
+    <div class="work-card reveal"><img src="https://picsum.photos/seed/w5/400/530" alt=""/><div class="work-overlay"><span class="work-label">Dashboard</span></div></div>
+    <div class="work-card reveal"><img src="https://picsum.photos/seed/w6/400/530" alt=""/><div class="work-overlay"><span class="work-label">Mobile App</span></div></div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" style="padding-bottom:120px">
+  <div class="contact-block reveal">
+    <h2>Gateway to great work.</h2>
+    <p>Let's collaborate and build something remarkable together.</p>
+    <a href="mailto:jane@example.com" class="btn-white">✉ Get in Touch</a>
+  </div>
+</section>
+
+<footer>© 2025 Jane Doe · Built with love &amp; HTML</footer>
+
+<script>
+// ── Word-by-word title animation ──
+const words = ["Building","digital","experiences","that","feel","alive."];
+const title = document.getElementById('heroTitle');
+words.forEach((w,i) => {
+  const div = document.createElement('div');
+  div.className = 'word' + (w === 'alive.' ? ' accent-word' : '');
+  div.innerHTML = `<span style="animation-delay:${0.2 + i*0.12}s">${w}</span>`;
+  title.appendChild(div);
+  if(w === 'digital' || w === 'that') title.appendChild(document.createElement('br'));
+});
+
+// ── Scroll reveal ──
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if(e.isIntersecting) {
+      // stagger children if multiple
+      const items = e.target.querySelectorAll('.reveal');
+      if(items.length) {
+        items.forEach((el,i) => setTimeout(() => el.classList.add('revealed'), i * 100));
+      } else {
+        e.target.classList.add('revealed');
+      }
+    }
+  });
+}, {threshold: 0.15});
+
+document.querySelectorAll('section').forEach(s => observer.observe(s));
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// ── 3D tilt on card stack ──
+const stack = document.getElementById('cardStack');
+stack.addEventListener('mousemove', e => {
+  const r = stack.getBoundingClientRect();
+  const x = (e.clientX - r.left - r.width/2) / (r.width/2);
+  const y = (e.clientY - r.top - r.height/2) / (r.height/2);
+  stack.style.transform = `perspective(800px) rotateY(${x*8}deg) rotateX(${-y*6}deg)`;
+});
+stack.addEventListener('mouseleave', () => {
+  stack.style.transform = 'perspective(800px) rotateY(0) rotateX(0)';
+});
+</script>
+</body>
+</html>
