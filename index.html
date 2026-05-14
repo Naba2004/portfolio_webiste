@@ -16,6 +16,8 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:cen
 .nav-links{display:flex;gap:20px;list-style:none}
 .nav-links a{font-size:.8rem;color:#555;text-decoration:none;transition:color .2s}
 .nav-links a:hover{color:var(--dark)}
+.nav-resume{background:var(--dark);color:#fff!important;padding:7px 16px;border-radius:99px;font-weight:600;transition:background .2s,transform .2s!important}
+.nav-resume:hover{background:var(--accent)!important;transform:translateY(-1px)}
 
 /* ── HERO ── */
 .hero{min-height:100vh;display:flex;align-items:center;justify-content:center;position:relative;padding:100px 24px 60px;overflow:hidden}
@@ -112,6 +114,8 @@ section{padding:80px 24px;max-width:1100px;margin:0 auto}
 .btn-white:hover{transform:translateY(-3px);background:#f0eeea}
 
 footer{text-align:center;padding:32px 24px;font-size:.78rem;color:#aaa;border-top:1px solid #e8e6e0}
+/* hide skills styles (no longer used) */
+.skills-grid,.skill-card{display:none}
 
 @keyframes wordUp{to{transform:translateY(0);opacity:1}}
 @keyframes fadeUp{to{transform:translateY(0);opacity:1}}
@@ -183,12 +187,12 @@ footer{text-align:center;padding:32px 24px;font-size:.78rem;color:#aaa;border-to
 <body>
 
 <nav>
-  <div class="logo">✦ Jane Doe</div>
+  <div class="logo">✦ Nabashakti</div>
   <ul class="nav-links">
     <li><a href="#about">About</a></li>
-    <li><a href="#skills">Skills</a></li>
     <li><a href="#works">Works</a></li>
     <li><a href="#contact">Contact</a></li>
+    <li><a href="https://drive.google.com/file/d/1fjGvPWWPfTIO1M9RB-gGTvvLD94J9fsA/view?usp=sharing" target="_blank" class="nav-resume">Resume ↗</a></li>
   </ul>
 </nav>
 
@@ -198,7 +202,7 @@ footer{text-align:center;padding:32px 24px;font-size:.78rem;color:#aaa;border-to
 </div>
 
 <div class="hero" id="about">
-  <div class="tag t1">@janedoe</div>
+  <div class="tag t1">@nabashakti</div>
   <div class="tag light t2">✦ Open to work</div>
   <div class="tag accent t3">New York</div>
   <div class="tag light t4">Full-Stack Dev</div>
@@ -228,18 +232,7 @@ footer{text-align:center;padding:32px 24px;font-size:.78rem;color:#aaa;border-to
   </div>
 </div>
 
-<section id="skills">
-  <p class="section-label">What I do</p>
-  <h2 class="section-title">Skills & <em>Tools</em></h2>
-  <div class="skills-grid">
-    <div class="skill-card reveal"><div class="skill-icon">⚛️</div><div class="skill-name">React</div><div class="skill-level">Advanced</div></div>
-    <div class="skill-card reveal"><div class="skill-icon">🟢</div><div class="skill-name">Node.js</div><div class="skill-level">Advanced</div></div>
-    <div class="skill-card reveal"><div class="skill-icon">🔷</div><div class="skill-name">TypeScript</div><div class="skill-level">Advanced</div></div>
-    <div class="skill-card reveal"><div class="skill-icon">🎨</div><div class="skill-name">Figma</div><div class="skill-level">Intermediate</div></div>
-    <div class="skill-card reveal"><div class="skill-icon">🐍</div><div class="skill-name">Python</div><div class="skill-level">Intermediate</div></div>
-    <div class="skill-card reveal"><div class="skill-icon">☁️</div><div class="skill-name">AWS</div><div class="skill-level">Intermediate</div></div>
-  </div>
-</section>
+
 
 <section id="works">
   <p class="section-label">Selected works</p>
@@ -262,7 +255,7 @@ footer{text-align:center;padding:32px 24px;font-size:.78rem;color:#aaa;border-to
   </div>
 </section>
 
-<footer>© 2025 Jane Doe · Built with love &amp; HTML</footer>
+<footer>© 2025 Nabashakti · Built with love &amp; HTML</footer>
 
 <script>
 const words=["Building","digital","experiences","that","feel","alive."];
