@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>About — naav</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@1,400;1,700&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#f0ede8;--dark:#111;--accent:#e85d3a;--purple:#6c2bd9}
+html{scroll-behavior:smooth}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg);color:var(--dark);overflow-x:hidden}
+
+/* GRID CURSOR */
+.grid-canvas{position:fixed;inset:0;pointer-events:none;z-index:0;
+  background-image:linear-gradient(rgba(0,0,0,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(0,0,0,.06) 1px,transparent 1px);
+  background-size:44px 44px;
+  -webkit-mask-image:radial-gradient(circle 180px at -999px -999px,black 0%,transparent 100%);
+  mask-image:radial-gradient(circle 180px at -999px -999px,black 0%,transparent 100%)}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:18px 52px;background:rgba(240,237,232,.88);backdrop-filter:blur(14px)}
+.logo{font-weight:900;font-size:1.05rem;letter-spacing:-.04em;text-decoration:none;color:var(--dark);display:flex;align-items:center;gap:6px}
+.logo-star{color:var(--accent)}
+.nav-links{display:flex;gap:28px;list-style:none;align-items:center}
+.nav-links a{font-size:.84rem;color:#666;text-decoration:none;font-weight:500;transition:color .2s}
+.nav-links a:hover,.nav-links a.active{color:var(--dark)}
+.nav-resume{background:var(--dark)!important;color:#fff!important;padding:9px 20px;border-radius:99px;font-weight:600;font-size:.84rem;transition:background .2s,transform .2s}
+.nav-resume:hover{background:var(--accent)!important;transform:translateY(-1px)}
+
+/* ── ABOUT HERO ── */
+.about-hero{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:120px 52px 80px;position:relative;z-index:1}
+.about-inner{display:flex;align-items:center;gap:80px;max-width:1000px;width:100%}
+
+/* Photo */
+.photo-wrap{flex:0 0 340px;position:relative}
+.photo-frame{
+  width:320px;height:400px;
+  border-radius:28px;
+  overflow:hidden;
+  box-shadow:0 24px 64px rgba(0,0,0,.18);
+  transform:rotate(-3deg);
+  transition:transform .5s cubic-bezier(.34,1.56,.64,1);
+  position:relative;z-index:2
+}
+.photo-frame:hover{transform:rotate(0deg) scale(1.02)}
+.photo-frame img{width:100%;height:100%;object-fit:cover;object-position:top center;display:block}
+/* Decorative blob behind photo */
+.photo-blob{
+  position:absolute;width:280px;height:280px;
+  background:linear-gradient(135deg,var(--accent),#f59e0b);
+  border-radius:60% 40% 50% 60% / 50% 60% 40% 50%;
+  top:-24px;left:-24px;z-index:1;opacity:.25;
+  animation:blobFloat 6s ease-in-out infinite
+}
+@keyframes blobFloat{0%,100%{transform:scale(1) rotate(0deg)}50%{transform:scale(1.08) rotate(6deg)}}
+
+/* Hi section */
+.about-text{flex:1}
+.hi-row{display:flex;align-items:center;gap:16px;margin-bottom:24px;opacity:0;transform:translateY(20px);animation:fadeUp .7s ease forwards .2s}
+.hi-text{font-size:2.8rem;font-weight:900;letter-spacing:-.04em}
+.wave-wrap{display:inline-flex;align-items:center;font-size:2.4rem;animation:waveAnim 2.5s ease-in-out infinite;transform-origin:70% 80%}
+@keyframes waveAnim{
+  0%{transform:rotate(0deg)}
+  10%{transform:rotate(14deg)}
+  20%{transform:rotate(-8deg)}
+  30%{transform:rotate(14deg)}
+  40%{transform:rotate(-4deg)}
+  50%{transform:rotate(10deg)}
+  60%,100%{transform:rotate(0deg)}
+}
+
+.about-intro{font-size:1.6rem;font-weight:800;line-height:1.2;letter-spacing:-.03em;margin-bottom:20px;opacity:0;transform:translateY(20px);animation:fadeUp .7s ease forwards .4s}
+.about-intro .serif{font-family:'Playfair Display',serif;font-style:italic;font-weight:400;color:var(--accent)}
+
+.about-desc{font-size:1rem;line-height:1.75;color:#666;margin-bottom:32px;opacity:0;transform:translateY(20px);animation:fadeUp .7s ease forwards .6s}
+
+/* Info pills */
+.info-pills{display:flex;flex-wrap:wrap;gap:10px;opacity:0;transform:translateY(20px);animation:fadeUp .7s ease forwards .8s}
+.pill{background:#fff;border:1.5px solid #e0dcd5;border-radius:99px;padding:7px 16px;font-size:.78rem;font-weight:600;color:#444;display:flex;align-items:center;gap:6px}
+.pill span{font-size:.85rem}
+
+/* ── SPECIALITIES ── */
+.spec-section{padding:80px 52px 120px;position:relative;z-index:1}
+.spec-section-inner{max-width:1000px;margin:0 auto}
+.spec-header{text-align:center;margin-bottom:56px;opacity:0;transform:translateY(24px)}
+.spec-label{font-size:.72rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#bbb;margin-bottom:12px}
+.spec-title{font-size:clamp(2rem,4vw,3.2rem);font-weight:900;letter-spacing:-.04em;line-height:1}
+.spec-title .serif{font-family:'Playfair Display',serif;font-style:italic;font-weight:400;color:var(--accent)}
+
+/* Cards grid */
+.spec-top{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:16px}
+.spec-bottom{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+
+.spec-card{
+  background:#1a1128;
+  border:1px solid rgba(255,255,255,.07);
+  border-radius:22px;
+  padding:36px 32px;
+  color:#fff;
+  position:relative;
+  overflow:hidden;
+  cursor:default;
+  opacity:0;transform:translateY(32px);
+  transition:transform .4s cubic-bezier(.34,1.56,.64,1),box-shadow .4s ease,border-color .4s ease
+}
+.spec-card::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(circle at 0% 0%,rgba(108,43,217,.35) 0%,transparent 60%);
+  opacity:0;transition:opacity .4s
+}
+.spec-card:hover{transform:translateY(-6px);box-shadow:0 24px 60px rgba(108,43,217,.25);border-color:rgba(108,43,217,.4)}
+.spec-card:hover::before{opacity:1}
+
+.card-icon{width:44px;height:44px;background:rgba(255,255,255,.08);border-radius:12px;display:flex;align-items:center;justify-content:center;margin-bottom:20px;font-size:1.2rem;transition:background .3s,transform .3s}
+.spec-card:hover .card-icon{background:rgba(108,43,217,.4);transform:scale(1.1)}
+.card-title{font-size:1.1rem;font-weight:700;margin-bottom:12px;letter-spacing:-.02em}
+.card-desc{font-size:.85rem;line-height:1.65;color:rgba(255,255,255,.5)}
+
+/* Glow accent dot */
+.glow{position:absolute;width:120px;height:120px;border-radius:50%;background:var(--purple);filter:blur(60px);opacity:.15;bottom:-30px;right:-20px;pointer-events:none}
+
+/* CTA */
+.about-cta{text-align:center;margin-top:56px;opacity:0;transform:translateY(20px)}
+.btn-dark{display:inline-flex;align-items:center;gap:8px;background:var(--dark);color:#fff;padding:14px 32px;border-radius:99px;font-size:.9rem;font-weight:600;text-decoration:none;transition:transform .2s,background .2s;margin:0 8px}
+.btn-dark:hover{transform:translateY(-2px);background:#333}
+.btn-outline{display:inline-flex;align-items:center;gap:8px;border:1.5px solid #bbb;color:var(--dark);background:#fff;padding:14px 32px;border-radius:99px;font-size:.9rem;font-weight:600;text-decoration:none;transition:transform .2s,border-color .2s;margin:0 8px}
+.btn-outline:hover{border-color:var(--dark);transform:translateY(-2px)}
+
+footer{text-align:center;padding:32px 52px;font-size:.76rem;color:#aaa;border-top:1px solid #e0dcd5;position:relative;z-index:1}
+
+@keyframes fadeUp{to{transform:translateY(0);opacity:1}}
+.revealed{opacity:1!important;transform:none!important}
+
+/* MOBILE */
+@media(max-width:768px){
+  nav{padding:14px 18px}
+  .nav-links{gap:14px}
+  .about-hero{padding:90px 18px 60px}
+  .about-inner{flex-direction:column;gap:40px;align-items:center}
+  .photo-wrap{flex:none;width:100%;display:flex;justify-content:center}
+  .photo-frame{width:260px;height:320px}
+  .about-text{width:100%}
+  .hi-text{font-size:2.2rem}
+  .about-intro{font-size:1.3rem}
+  .spec-section{padding:60px 18px 80px}
+  .spec-top{grid-template-columns:1fr}
+  .spec-bottom{grid-template-columns:1fr}
+  .about-cta{margin-top:40px}
+  footer{padding:24px 18px}
+}
+</style>
+</head>
+<body>
+
+<div class="grid-canvas" id="grid"></div>
+
+<nav>
+  <a href="index.html" class="logo"><span class="logo-star">✦</span> naav</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="about.html" class="active">About</a></li>
+    <li><a href="index.html#works">Works</a></li>
+    <li><a href="index.html#contact">Contact</a></li>
+    <li><a href="https://drive.google.com/file/d/1fjGvPWWPfTIO1M9RB-gGTvvLD94J9fsA/view?usp=sharing" target="_blank" class="nav-resume">Resume ↗</a></li>
+  </ul>
+</nav>
+
+<!-- ABOUT HERO -->
+<div class="about-hero">
+  <div class="about-inner">
+
+    <!-- Photo -->
+    <div class="photo-wrap">
+      <div class="photo-blob"></div>
+      <div class="photo-frame">
+        <!-- ⚠️ Replace 'photo.jpg' with your actual image filename pushed to GitHub -->
+        <img src="photo.jpg" alt="Nabashakti Boro"/>
+      </div>
+    </div>
+
+    <!-- Text -->
+    <div class="about-text">
+      <div class="hi-row">
+        <span class="hi-text">Hi</span>
+        <span class="wave-wrap">👋</span>
+      </div>
+
+      <h1 class="about-intro">
+        I'm <span class="serif">Nabashakti,</span><br>
+        a UI/UX Designer<br>
+        based in Assam, India.
+      </h1>
+
+      <p class="about-desc">
+        I love creating intuitive, research-driven digital experiences. I enjoy transforming ideas into seamless, visually refined products — where clarity meets craft, across web and mobile.
+      </p>
+
+      <div class="info-pills">
+        <div class="pill"><span>🎨</span> UI/UX Design</div>
+        <div class="pill"><span>📍</span> Assam, India</div>
+        <div class="pill"><span>✦</span> Open to work</div>
+        <div class="pill"><span>🖥️</span> Web & Mobile</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SPECIALITIES -->
+<div class="spec-section">
+  <div class="spec-section-inner">
+
+    <div class="spec-header">
+      <p class="spec-label">What I bring</p>
+      <h2 class="spec-title">My <span class="serif">Specialities</span></h2>
+    </div>
+
+    <div class="spec-top">
+      <div class="spec-card">
+        <div class="card-icon">⬡</div>
+        <div class="card-title">UI/UX Design</div>
+        <div class="card-desc">Crafting research-driven, user-centered digital experiences that balance clarity and functionality.</div>
+        <div class="glow"></div>
+      </div>
+      <div class="spec-card">
+        <div class="card-icon">🖥️</div>
+        <div class="card-title">Website Design</div>
+        <div class="card-desc">Creating structured, responsive websites with clear navigation and accessible design systems.</div>
+        <div class="glow"></div>
+      </div>
+      <div class="spec-card">
+        <div class="card-icon">📱</div>
+        <div class="card-title">Mobile App Design</div>
+        <div class="card-desc">Designing intuitive mobile interfaces focused on usability, flow, and engagement.</div>
+        <div class="glow"></div>
+      </div>
+    </div>
+
+    <div class="spec-bottom">
+      <div class="spec-card">
+        <div class="card-icon">⬜</div>
+        <div class="card-title">Wireframing</div>
+        <div class="card-desc">Structuring ideas into clear layouts that define content hierarchy and interaction patterns.</div>
+        <div class="glow"></div>
+      </div>
+      <div class="spec-card">
+        <div class="card-icon">⇄</div>
+        <div class="card-title">Prototyping</div>
+        <div class="card-desc">Building interactive flows to evaluate usability and improve user experience.</div>
+        <div class="glow"></div>
+      </div>
+    </div>
+
+    <div class="about-cta">
+      <a href="index.html#works" class="btn-dark">View My Work ↗</a>
+      <a href="index.html#contact" class="btn-outline">Let's Connect</a>
+    </div>
+
+  </div>
+</div>
+
+<footer>© 2025 naav · Nabashakti Boro · Built with love &amp; HTML</footer>
+
+<script>
+// Grid spotlight
+const grid=document.getElementById('grid');
+document.addEventListener('mousemove',e=>{
+  const v=`radial-gradient(circle 180px at ${e.clientX}px ${e.clientY}px,black 0%,transparent 100%)`;
+  grid.style.webkitMaskImage=v;grid.style.maskImage=v;
+});
+document.addEventListener('mouseleave',()=>{
+  const v=`radial-gradient(circle 180px at -999px -999px,black 0%,transparent 100%)`;
+  grid.style.webkitMaskImage=v;grid.style.maskImage=v;
+});
+
+// Scroll reveal for cards & header
+const obs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      // stagger cards
+      if(e.target.classList.contains('spec-top')||e.target.classList.contains('spec-bottom')){
+        e.target.querySelectorAll('.spec-card').forEach((c,i)=>{
+          setTimeout(()=>c.classList.add('revealed'),i*120);
+        });
+      } else {
+        e.target.classList.add('revealed');
+      }
+    }
+  });
+},{threshold:0.15});
+
+document.querySelectorAll('.spec-header,.spec-top,.spec-bottom,.about-cta').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>
