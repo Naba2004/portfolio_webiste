@@ -3,240 +3,305 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Jane Doe</title>
+<title>naav — Nabashakti</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800;900&family=Cormorant+Garamond:ital,wght@1,400;1,600&display=swap" rel="stylesheet"/>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-:root{--bg:#f5f4f0;--dark:#111;--accent:#e85d3a}
+:root{--bg:#f0ede8;--dark:#111;--accent:#5b4cf5;--muted:#888}
 html{scroll-behavior:smooth}
-body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;background:var(--bg);color:var(--dark);overflow-x:hidden}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg);color:var(--dark);overflow-x:hidden}
+
+/* ── CURSOR GRID ── */
+.grid-canvas{position:fixed;inset:0;pointer-events:none;z-index:0;
+  background-image:linear-gradient(rgba(0,0,0,.10) 1px,transparent 1px),linear-gradient(90deg,rgba(0,0,0,.10) 1px,transparent 1px);
+  background-size:44px 44px;
+  -webkit-mask-image:radial-gradient(circle 180px at -999px -999px,black 0%,transparent 100%);
+  mask-image:radial-gradient(circle 180px at -999px -999px,black 0%,transparent 100%)}
 
 /* ── NAV ── */
-nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:16px 24px;backdrop-filter:blur(12px);background:rgba(245,244,240,.9)}
-.logo{font-weight:800;font-size:1rem;letter-spacing:-.02em}
-.nav-links{display:flex;gap:20px;list-style:none}
-.nav-links a{font-size:.8rem;color:#555;text-decoration:none;transition:color .2s}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:18px 52px;background:rgba(240,237,232,.88);backdrop-filter:blur(14px)}
+.logo{font-weight:900;font-size:1.05rem;letter-spacing:-.04em;display:flex;align-items:center;gap:6px}
+.logo-star{color:var(--accent)}
+.nav-links{display:flex;gap:28px;list-style:none;align-items:center}
+.nav-links a{font-size:.84rem;color:#666;text-decoration:none;font-weight:500;transition:color .2s}
 .nav-links a:hover{color:var(--dark)}
-.nav-resume{background:var(--dark);color:#fff!important;padding:7px 16px;border-radius:99px;font-weight:600;transition:background .2s,transform .2s!important}
+.nav-resume{background:var(--dark)!important;color:#fff!important;padding:9px 20px;border-radius:99px;font-weight:600;font-size:.84rem;transition:background .2s,transform .2s}
 .nav-resume:hover{background:var(--accent)!important;transform:translateY(-1px)}
 
 /* ── HERO ── */
-.hero{min-height:100vh;display:flex;align-items:center;justify-content:center;position:relative;padding:100px 24px 60px;overflow:hidden}
-.hero-inner{display:flex;align-items:center;gap:60px;max-width:1100px;width:100%;position:relative;z-index:2;flex-wrap:wrap}
-.hero-left{flex:1;min-width:280px}
-.eyebrow{font-size:.72rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#888;margin-bottom:16px}
+.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;position:relative;padding:140px 64px 100px;overflow:hidden;z-index:1}
 
-/* Word reveal */
-.hero-title{font-size:clamp(2.2rem,7vw,5rem);font-weight:900;line-height:1.05;letter-spacing:-.03em;margin-bottom:24px}
-.word{display:inline-block;overflow:hidden;margin-right:.22em}
-.word span{display:inline-block;transform:translateY(110%);opacity:0;animation:wordUp .7s cubic-bezier(.22,1,.36,1) forwards}
-.accent-word span{color:var(--accent)}
+/* Available pill */
+.avail-pill{display:inline-flex;align-items:center;gap:8px;background:#fff;border:1px solid #e0dcd5;border-radius:99px;padding:7px 16px;font-size:.78rem;font-weight:500;color:#444;margin-bottom:32px;width:fit-content}
+.avail-dot{width:7px;height:7px;background:#22c55e;border-radius:50%;animation:pulse-dot 2s ease-in-out infinite}
+@keyframes pulse-dot{0%,100%{box-shadow:0 0 0 0 rgba(34,197,94,.4)}50%{box-shadow:0 0 0 5px rgba(34,197,94,0)}}
 
-.hero-bio{font-size:.95rem;line-height:1.75;color:#555;max-width:420px;margin-bottom:32px;opacity:0;transform:translateY(20px);animation:fadeUp .8s ease forwards;animation-delay:1.2s}
-.hero-btns{display:flex;gap:12px;flex-wrap:wrap;opacity:0;transform:translateY(20px);animation:fadeUp .8s ease forwards;animation-delay:1.5s}
-.btn-dark{display:inline-flex;align-items:center;gap:8px;background:var(--dark);color:#fff;padding:12px 24px;border-radius:99px;font-size:.85rem;font-weight:600;text-decoration:none;transition:transform .2s,background .2s}
-.btn-dark:hover{transform:translateY(-2px);background:#333}
-.btn-outline{display:inline-flex;align-items:center;gap:8px;border:1.5px solid var(--dark);color:var(--dark);padding:12px 24px;border-radius:99px;font-size:.85rem;font-weight:600;text-decoration:none;transition:transform .2s,background .2s,color .2s}
-.btn-outline:hover{background:var(--dark);color:#fff;transform:translateY(-2px)}
+/* ── BIG MIXED FONT TITLE ── */
+.hero-title{font-size:clamp(3.2rem,7.5vw,7rem);line-height:1.02;letter-spacing:-.03em;margin-bottom:52px;max-width:900px}
+.serif{font-family:'Playfair Display',Georgia,serif;font-style:italic;font-weight:400}
+.sans{font-weight:800;letter-spacing:-.04em}
+.accent-word{color:var(--accent)}
 
-/* ── FLOATING TAGS ── */
-.tag{position:absolute;background:var(--dark);color:#fff;font-size:.72rem;font-weight:600;padding:6px 14px;border-radius:99px;white-space:nowrap;animation:floatTag 6s ease-in-out infinite;pointer-events:none;z-index:5}
-.tag.light{background:#fff;color:var(--dark);box-shadow:0 2px 16px rgba(0,0,0,.1)}
-.tag.accent{background:var(--accent);color:#fff}
-@keyframes floatTag{0%,100%{transform:translateY(0) rotate(-2deg)}50%{transform:translateY(-10px) rotate(2deg)}}
-.t1{top:12%;left:4%;animation-delay:0s}
-.t2{top:20%;right:4%;animation-delay:1.2s}
-.t3{top:70%;left:3%;animation-delay:2.1s}
-.t4{bottom:15%;right:4%;animation-delay:.7s}
-.t5{top:8%;left:45%;animation-delay:1.8s}
+/* Cycling word */
+.cycle-wrap{display:inline-block;position:relative;overflow:hidden;vertical-align:bottom}
+.cycle-word{display:block;position:relative;animation:slideIn .5s cubic-bezier(.22,1,.36,1)}
+.cycle-exit{position:absolute;top:0;left:0;animation:slideOut .4s cubic-bezier(.22,1,.36,1) forwards;white-space:nowrap}
+@keyframes slideIn{from{transform:translateY(105%);opacity:0}to{transform:translateY(0);opacity:1}}
+@keyframes slideOut{to{transform:translateY(-105%);opacity:0}}
 
-/* ── FANNED CARDS ── */
-.cards-area{flex:0 0 340px;position:relative;height:360px;display:flex;flex-direction:column;align-items:center}
-.card-stack{position:relative;width:220px;height:280px;margin:40px auto 0;cursor:pointer}
-.art-card{position:absolute;width:180px;height:230px;border-radius:16px;overflow:hidden;box-shadow:0 10px 32px rgba(0,0,0,.18);transition:transform .5s cubic-bezier(.34,1.56,.64,1),box-shadow .4s ease;display:flex;align-items:center;justify-content:center}
-.card-label{color:rgba(255,255,255,.8);font-weight:700;font-size:.75rem;letter-spacing:.08em;text-transform:uppercase}
-.art-card:nth-child(1){background:linear-gradient(135deg,#f97316,#ef4444);transform:rotate(-18deg) translate(-50px,16px);z-index:1}
-.art-card:nth-child(2){background:linear-gradient(135deg,#8b5cf6,#ec4899);transform:rotate(-9deg) translate(-16px,8px);z-index:2}
-.art-card:nth-child(3){background:linear-gradient(135deg,#06b6d4,#3b82f6);transform:rotate(0deg) translate(8px,0);z-index:3}
-.art-card:nth-child(4){background:linear-gradient(135deg,#22c55e,#10b981);transform:rotate(9deg) translate(40px,8px);z-index:2}
-.art-card:nth-child(5){background:linear-gradient(135deg,#f59e0b,#f97316);transform:rotate(18deg) translate(76px,16px);z-index:1}
-.card-stack:hover .art-card:nth-child(1){transform:rotate(-22deg) translate(-90px,24px) scale(1.05);box-shadow:0 18px 50px rgba(0,0,0,.22)}
-.card-stack:hover .art-card:nth-child(2){transform:rotate(-11deg) translate(-40px,8px) scale(1.05);box-shadow:0 18px 50px rgba(0,0,0,.22)}
-.card-stack:hover .art-card:nth-child(3){transform:rotate(0deg) translate(8px,-8px) scale(1.1);box-shadow:0 24px 60px rgba(0,0,0,.28);z-index:6}
-.card-stack:hover .art-card:nth-child(4){transform:rotate(11deg) translate(56px,8px) scale(1.05);box-shadow:0 18px 50px rgba(0,0,0,.22)}
-.card-stack:hover .art-card:nth-child(5){transform:rotate(22deg) translate(110px,24px) scale(1.05);box-shadow:0 18px 50px rgba(0,0,0,.22)}
-.hint-text{text-align:center;font-size:.7rem;color:#aaa;margin-top:12px;letter-spacing:.06em}
+/* Bottom hero row */
+.hero-bottom{display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:32px;margin-top:16px}
+.hero-left-info{}
+.hero-bio{font-size:1rem;line-height:1.75;color:#666;max-width:480px;margin-bottom:28px;opacity:0;transform:translateY(14px);animation:fadeUp .8s ease forwards;animation-delay:.8s}
+.location{display:flex;align-items:center;gap:6px;font-size:.82rem;color:var(--muted);margin-bottom:36px;opacity:0;animation:fadeUp .8s ease forwards;animation-delay:1s}
+.location svg{width:12px;height:12px;fill:var(--accent)}
+.hero-btns{display:flex;gap:12px;flex-wrap:wrap;opacity:0;animation:fadeUp .8s ease forwards;animation-delay:1.1s}
+.btn-dark{display:inline-flex;align-items:center;gap:8px;background:var(--dark);color:#fff;padding:14px 28px;border-radius:99px;font-size:.88rem;font-weight:600;text-decoration:none;transition:transform .2s,background .2s}
+.btn-dark:hover{transform:translateY(-2px);background:#222}
+.btn-outline{display:inline-flex;align-items:center;gap:8px;border:1.5px solid #bbb;color:var(--dark);padding:14px 28px;border-radius:99px;font-size:.88rem;font-weight:600;text-decoration:none;background:#fff;transition:transform .2s,border-color .2s,background .2s}
+.btn-outline:hover{border-color:var(--dark);transform:translateY(-2px)}
 
-/* ── FLOATING ICONS ── */
-.float-icons{position:absolute;inset:0;pointer-events:none;z-index:1}
-.fi{position:absolute;opacity:.12;animation:floatIcon 8s ease-in-out infinite;font-style:normal}
-@keyframes floatIcon{0%,100%{transform:translateY(0) rotate(0deg)}50%{transform:translateY(-18px) rotate(15deg)}}
-.fi:nth-child(1){top:15%;left:22%;font-size:1.2rem;animation-delay:0s}
-.fi:nth-child(2){top:35%;left:15%;font-size:.9rem;animation-delay:1s}
-.fi:nth-child(3){bottom:25%;left:28%;font-size:1rem;animation-delay:2s}
-.fi:nth-child(4){top:10%;right:30%;font-size:.8rem;animation-delay:1.5s}
-.fi:nth-child(5){bottom:15%;right:25%;font-size:1.1rem;animation-delay:.5s}
-.fi:nth-child(6){top:55%;left:10%;font-size:.9rem;animation-delay:3s}
+/* Open to work badge (bottom right) */
+.open-badge{text-align:right;opacity:0;animation:fadeUp .8s ease forwards;animation-delay:1.3s}
+.open-badge .badge-label{font-size:.78rem;color:#666;display:flex;align-items:center;gap:6px;justify-content:flex-end;margin-bottom:4px}
+.open-dot{width:7px;height:7px;background:#22c55e;border-radius:50%;display:inline-block;animation:pulse-dot 2s ease-in-out infinite}
+.open-badge .badge-role{font-size:.88rem;font-weight:600;color:var(--dark)}
 
-/* ── SECTIONS ── */
-section{padding:80px 24px;max-width:1100px;margin:0 auto}
-.section-label{font-size:.72rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#aaa;margin-bottom:14px}
-.section-title{font-size:clamp(1.8rem,4vw,3rem);font-weight:900;letter-spacing:-.03em;line-height:1.1;margin-bottom:40px}
+/* Decorative sparkle */
+.sparkle{position:absolute;right:12%;top:42%;opacity:.7;animation:sparkSpin 8s linear infinite}
+@keyframes sparkSpin{to{transform:rotate(360deg)}}
+
+/* ── LOGO CAROUSEL ── */
+.carousel-section{padding:56px 0;border-top:1px solid #e0dcd5;border-bottom:1px solid #e0dcd5;background:var(--bg);overflow:hidden;position:relative;z-index:1}
+.carousel-label{text-align:center;font-size:.7rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#bbb;margin-bottom:28px}
+.track-wrap{overflow:hidden;position:relative}
+/* Fade edges */
+.track-wrap::before,.track-wrap::after{content:'';position:absolute;top:0;bottom:0;width:120px;z-index:2;pointer-events:none}
+.track-wrap::before{left:0;background:linear-gradient(to right,var(--bg),transparent)}
+.track-wrap::after{right:0;background:linear-gradient(to left,var(--bg),transparent)}
+.track{display:flex;gap:0;animation:scroll 28s linear infinite;width:max-content}
+.track:hover{animation-play-state:paused}
+.logo-item{display:flex;align-items:center;gap:10px;padding:0 40px;color:#888;font-weight:700;font-size:.95rem;letter-spacing:-.01em;white-space:nowrap;transition:color .3s}
+.logo-item:hover{color:var(--dark)}
+.logo-item svg,.logo-item img{width:22px;height:22px;opacity:.55;transition:opacity .3s;flex-shrink:0}
+.logo-item:hover svg,.logo-item:hover img{opacity:1}
+.logo-sep{color:#ddd;font-size:1.2rem;padding:0 8px;user-select:none}
+@keyframes scroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+
+/* ── WORKS ── */
+section.works-sec,.contact-sec{padding:110px 64px;max-width:1140px;margin:0 auto;position:relative;z-index:1}
+.section-label{font-size:.7rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#bbb;margin-bottom:14px}
+.section-title{font-size:clamp(1.8rem,3.5vw,2.8rem);font-weight:900;letter-spacing:-.03em;line-height:1.1;margin-bottom:40px}
 .section-title em{color:var(--accent);font-style:normal}
-
-/* Skills */
-.skills-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px}
-.skill-card{background:#fff;border-radius:14px;padding:20px;border:1.5px solid #e8e6e0;transition:transform .3s,box-shadow .3s;opacity:0;transform:translateY(30px)}
-.skill-card:hover{transform:translateY(-4px)!important;box-shadow:0 14px 40px rgba(0,0,0,.08)}
-.skill-icon{font-size:1.4rem;margin-bottom:10px}
-.skill-name{font-weight:700;font-size:.9rem;margin-bottom:4px}
-.skill-level{font-size:.75rem;color:#888}
-
-/* Works */
-.works-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
-.work-card{border-radius:16px;overflow:hidden;aspect-ratio:3/4;position:relative;cursor:pointer;opacity:0;transform:scale(.96);display:flex;align-items:flex-end}
+.works-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.work-card{border-radius:18px;overflow:hidden;aspect-ratio:3/4;position:relative;cursor:pointer;opacity:0;transform:scale(.97)}
 .work-bg{position:absolute;inset:0;transition:transform .5s ease}
 .work-card:hover .work-bg{transform:scale(1.06)}
-.work-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.65) 0%,transparent 55%);opacity:0;transition:opacity .4s;display:flex;align-items:flex-end;padding:16px}
+.work-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.6) 0%,transparent 55%);opacity:0;transition:opacity .4s;display:flex;align-items:flex-end;padding:18px}
 .work-card:hover .work-overlay,.work-card:active .work-overlay{opacity:1}
-.work-label{color:#fff;font-weight:700;font-size:.85rem;position:relative;z-index:2}
-.work-card:nth-child(1) .work-bg{background:linear-gradient(160deg,#667eea,#764ba2)}
-.work-card:nth-child(2) .work-bg{background:linear-gradient(160deg,#f093fb,#f5576c)}
-.work-card:nth-child(3) .work-bg{background:linear-gradient(160deg,#4facfe,#00f2fe)}
-.work-card:nth-child(4) .work-bg{background:linear-gradient(160deg,#43e97b,#38f9d7)}
-.work-card:nth-child(5) .work-bg{background:linear-gradient(160deg,#fa709a,#fee140)}
-.work-card:nth-child(6) .work-bg{background:linear-gradient(160deg,#a18cd1,#fbc2eb)}
+.work-label{color:#fff;font-weight:700;font-size:.88rem;position:relative;z-index:2}
+.work-card:nth-child(1) .work-bg{background:linear-gradient(145deg,#667eea,#764ba2)}
+.work-card:nth-child(2) .work-bg{background:linear-gradient(145deg,#f093fb,#f5576c)}
+.work-card:nth-child(3) .work-bg{background:linear-gradient(145deg,#4facfe,#00f2fe)}
+.work-card:nth-child(4) .work-bg{background:linear-gradient(145deg,#43e97b,#38f9d7)}
+.work-card:nth-child(5) .work-bg{background:linear-gradient(145deg,#fa709a,#fee140)}
+.work-card:nth-child(6) .work-bg{background:linear-gradient(145deg,#a18cd1,#fbc2eb)}
 
-/* Contact */
-.contact-block{background:var(--dark);color:#fff;border-radius:24px;padding:56px 32px;text-align:center;opacity:0;transform:translateY(40px)}
+/* ── CONTACT ── */
+.contact-block{background:var(--dark);color:#fff;border-radius:24px;padding:72px;text-align:center;opacity:0;transform:translateY(40px)}
 .contact-block h2{font-size:clamp(1.8rem,4vw,3rem);font-weight:900;letter-spacing:-.03em;margin-bottom:14px}
-.contact-block p{color:#aaa;margin-bottom:36px;font-size:.95rem}
+.contact-block p{color:#888;margin-bottom:36px;font-size:.95rem}
 .btn-white{display:inline-flex;align-items:center;gap:8px;background:#fff;color:var(--dark);padding:13px 32px;border-radius:99px;font-weight:700;text-decoration:none;font-size:.9rem;transition:transform .2s,background .2s}
 .btn-white:hover{transform:translateY(-3px);background:#f0eeea}
 
-footer{text-align:center;padding:32px 24px;font-size:.78rem;color:#aaa;border-top:1px solid #e8e6e0}
-/* hide skills styles (no longer used) */
-.skills-grid,.skill-card{display:none}
+footer{text-align:center;padding:32px 52px;font-size:.76rem;color:#aaa;border-top:1px solid #e0dcd5;position:relative;z-index:1}
 
-@keyframes wordUp{to{transform:translateY(0);opacity:1}}
 @keyframes fadeUp{to{transform:translateY(0);opacity:1}}
 .reveal{transition:opacity .8s ease,transform .8s ease}
 .revealed{opacity:1!important;transform:none!important}
 
-/* ═══════════════════════════════
-   📱 MOBILE STYLES (max 768px)
-   ═══════════════════════════════ */
+/* ── MOBILE ── */
 @media(max-width:768px){
-
-  /* Nav */
-  nav{padding:14px 16px}
+  nav{padding:14px 18px}
   .nav-links{gap:14px}
-  .nav-links a{font-size:.75rem}
-
-  /* Hero — stack vertically */
-  .hero{padding:90px 16px 60px;align-items:flex-start}
-  .hero-inner{flex-direction:column;gap:40px;align-items:flex-start}
-  .hero-left{flex:none;width:100%}
-
-  /* Hide some floating tags on mobile (too cluttered) */
-  .t3,.t5{display:none}
-  .t1{top:8%;left:3%;font-size:.65rem;padding:5px 10px}
-  .t2{top:8%;right:3%;font-size:.65rem;padding:5px 10px}
-  .t4{bottom:auto;top:14%;right:3%;font-size:.65rem;padding:5px 10px}
-
-  /* Cards — centered, smaller */
-  .cards-area{flex:none;width:100%;height:280px;align-items:center}
-  .card-stack{width:180px;height:220px;margin:20px auto 0}
-  .art-card{width:140px;height:180px;border-radius:12px}
-  .art-card:nth-child(1){transform:rotate(-16deg) translate(-40px,12px)}
-  .art-card:nth-child(2){transform:rotate(-8deg) translate(-14px,6px)}
-  .art-card:nth-child(3){transform:rotate(0deg) translate(6px,0)}
-  .art-card:nth-child(4){transform:rotate(8deg) translate(34px,6px)}
-  .art-card:nth-child(5){transform:rotate(16deg) translate(64px,12px)}
-  .card-stack:hover .art-card:nth-child(1){transform:rotate(-20deg) translate(-70px,18px) scale(1.04)}
-  .card-stack:hover .art-card:nth-child(2){transform:rotate(-10deg) translate(-32px,6px) scale(1.04)}
-  .card-stack:hover .art-card:nth-child(3){transform:rotate(0deg) translate(6px,-8px) scale(1.08)}
-  .card-stack:hover .art-card:nth-child(4){transform:rotate(10deg) translate(46px,6px) scale(1.04)}
-  .card-stack:hover .art-card:nth-child(5){transform:rotate(20deg) translate(88px,18px) scale(1.04)}
-  .hint-text{font-size:.65rem}
-
-  /* Sections */
-  section{padding:60px 16px}
-
-  /* Skills — 2 columns on mobile */
-  .skills-grid{grid-template-columns:repeat(2,1fr)}
-
-  /* Works — 2 columns on mobile */
+  .hero{padding:88px 18px 60px}
+  .hero-title{font-size:clamp(2.6rem,10vw,4rem)}
+  .hero-bottom{flex-direction:column;align-items:flex-start}
+  .open-badge{text-align:left}
+  .open-badge .badge-label{justify-content:flex-start}
+  section.works-sec,.contact-sec{padding:60px 18px}
   .works-grid{grid-template-columns:repeat(2,1fr)}
-
-  /* Contact */
-  .contact-block{padding:40px 20px;border-radius:20px}
-
-  footer{padding:24px 16px}
+  .contact-block{padding:40px 20px}
+  footer{padding:24px 18px}
+  .carousel-section{padding:40px 0}
 }
-
-/* ── Very small phones (max 380px) ── */
-@media(max-width:380px){
-  .nav-links{gap:10px}
-  .nav-links li:nth-child(3),.nav-links li:nth-child(4){display:none}
+@media(max-width:400px){
   .works-grid{grid-template-columns:1fr 1fr}
-  .skills-grid{grid-template-columns:1fr 1fr}
-  .hero-title{font-size:2rem}
+  .nav-links li:nth-child(3){display:none}
 }
 </style>
 </head>
 <body>
 
+<div class="grid-canvas" id="grid"></div>
+
 <nav>
-  <div class="logo">✦ Nabashakti</div>
+  <div class="logo"><span class="logo-star">✦</span> naav</div>
   <ul class="nav-links">
-    <li><a href="about_page.html">About</a></li>
+    <li><a href="about.html">About</a></li>
     <li><a href="#works">Works</a></li>
     <li><a href="#contact">Contact</a></li>
     <li><a href="https://drive.google.com/file/d/1fjGvPWWPfTIO1M9RB-gGTvvLD94J9fsA/view?usp=sharing" target="_blank" class="nav-resume">Resume ↗</a></li>
   </ul>
 </nav>
 
-<div class="float-icons">
-  <i class="fi">⬡</i><i class="fi">◈</i><i class="fi">✦</i>
-  <i class="fi">⬢</i><i class="fi">◉</i><i class="fi">⟐</i>
-</div>
+<!-- Sparkle decoration -->
+<svg class="sparkle" width="28" height="28" viewBox="0 0 28 28" fill="none">
+  <path d="M14 0L15.5 12.5L28 14L15.5 15.5L14 28L12.5 15.5L0 14L12.5 12.5Z" fill="#e85d3a"/>
+</svg>
 
 <div class="hero" id="about">
-  <div class="tag t1">@nabashakti</div>
-  <div class="tag light t2">✦ Open to work</div>
-  <div class="tag accent t3">New York</div>
-  <div class="tag light t4">Full-Stack Dev</div>
-  <div class="tag t5">5+ yrs exp</div>
+  <div class="avail-pill"><span class="avail-dot"></span> Available for new projects</div>
 
-  <div class="hero-inner">
-    <div class="hero-left">
-      <p class="eyebrow">Portfolio · 2025</p>
-      <h1 class="hero-title" id="heroTitle"></h1>
-      <p class="hero-bio">I craft clean, user-friendly web experiences — from pixel-perfect UIs to rock-solid APIs. Passionate about design systems, performance, and the little details that make products feel alive.</p>
+  <h1 class="hero-title">
+    <span class="serif">Designing</span> <span class="sans">things</span><br>
+    <span class="sans">people love</span><br>
+    <span class="sans">to </span><span class="serif accent-word"><span class="cycle-wrap"><span class="cycle-word" id="cycleWord">use.</span></span></span>
+  </h1>
+
+  <div class="hero-bottom">
+    <div class="hero-left-info">
+      <p class="hero-bio">I enjoy transforming ideas into seamless, visually refined experiences — where clarity meets craft, across web and mobile products.</p>
+      <div class="location">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+        Assam, India
+      </div>
       <div class="hero-btns">
-        <a href="#works" class="btn-dark">View Works →</a>
-        <a href="#contact" class="btn-outline">Say Hello</a>
+        <a href="#works" class="btn-dark">View My Work ↗</a>
+        <a href="#contact" class="btn-outline">Let's Connect</a>
       </div>
     </div>
-
-    <div class="cards-area">
-      <div class="card-stack" id="cardStack">
-        <div class="art-card"><span class="card-label">Branding</span></div>
-        <div class="art-card"><span class="card-label">UI/UX</span></div>
-        <div class="art-card"><span class="card-label">Web</span></div>
-        <div class="art-card"><span class="card-label">Mobile</span></div>
-        <div class="art-card"><span class="card-label">Design</span></div>
-      </div>
-      <p class="hint-text">✦ tap to spread</p>
+    <div class="open-badge">
+      <div class="badge-label"><span class="open-dot"></span> Open to work</div>
+      <div class="badge-role">UI/UX Designer</div>
     </div>
   </div>
 </div>
 
+<!-- ── LOGO CAROUSEL ── -->
+<div class="carousel-section">
+  <p class="carousel-label">Tools & Technologies</p>
+  <div class="track-wrap">
+    <div class="track" id="track">
+      <!-- Set 1 -->
+      <div class="logo-item">
+        <svg viewBox="0 0 24 24" fill="#61DAFB"><path d="M12 9.861A2.139 2.139 0 1 0 12 14.139 2.139 2.139 0 1 0 12 9.861zM6.008 16.255l-.472-.12C2.018 15.246 0 13.737 0 11.996s2.018-3.25 5.536-4.139l.472-.12.121.468a23.53 23.53 0 0 0 1.2 3.19.5.5 0 0 1 0 .48 23.63 23.63 0 0 0-1.2 3.19l-.12.468zm-.52-1.6a10.6 10.6 0 0 1 .688-1.9 10.83 10.83 0 0 1-.688-1.9C3.394 11.2 2 12.016 2 11.996c0 .02 1.394.795 3.488 1.66zm-.52 3.13c-.28.287-.576.564-.885.826C5.49 19.502 5.91 20 6.272 20c.37 0 .693-.36 1.005-.88zm0 0"/></svg>
+        React
+      </div>
+      <span class="logo-sep">·</span>
+      <div class="logo-item">
+        <svg viewBox="0 0 24 24" fill="#3178C6"><path d="M0 12v12h24V0H0zm19.341-.956c.61.152 1.074.423 1.501.865.221.236.549.666.575.77.008.03-1.036.73-1.668 1.123-.023.015-.115-.084-.217-.236-.31-.45-.633-.644-1.128-.678-.728-.05-1.196.331-1.192.967a.88.88 0 0 0 .102.45c.16.331.458.53 1.39.933 1.719.74 2.454 1.227 2.911 1.92.51.773.625 2.008.278 2.926-.38.998-1.325 1.676-2.655 1.9-.411.073-1.386.062-1.828-.018-.964-.172-1.878-.648-2.442-1.272-.221-.243-.652-.88-.625-.925a6.27 6.27 0 0 1 .664-.414l.97-.56.222.332c.309.47.985.882 1.559.94.535.054 1.178-.024 1.523-.2a.926.926 0 0 0 .463-.648c0-.248-.034-.357-.17-.542-.176-.242-.534-.447-1.56-.89-1.172-.5-1.676-.812-2.135-1.306a2.95 2.95 0 0 1-.621-1.26c-.086-.45-.061-1.584.04-2.031.348-1.503 1.572-2.548 3.164-2.763.547-.073 1.818-.044 2.358.085z"/></svg>
+        TypeScript
+      </div>
+      <span class="logo-sep">·</span>
+      <div class="logo-item">
+        <svg viewBox="0 0 24 24" fill="#339933"><path d="M11.998 24c-.321 0-.641-.084-.922-.247l-2.936-1.737c-.438-.245-.224-.332-.08-.383.585-.203.703-.25 1.328-.604.065-.037.151-.023.218.017l2.256 1.339c.082.045.198.045.272 0l8.795-5.076c.082-.047.134-.141.134-.238V6.921c0-.099-.052-.19-.137-.242l-8.791-5.072c-.081-.047-.189-.047-.271 0L3.075 6.68c-.087.05-.141.144-.141.242v10.15c0 .097.054.189.139.235l2.409 1.392c1.307.654 2.108-.116 2.108-.891V7.787c0-.142.114-.253.256-.253h1.115c.139 0 .255.111.255.253v10.021c0 1.745-.95 2.745-2.604 2.745-.508 0-.909 0-2.026-.551L2.28 18.675c-.57-.329-.922-.943-.922-1.604V6.921c0-.659.352-1.275.922-1.603l8.795-5.082c.557-.315 1.296-.315 1.848 0l8.794 5.082c.57.329.924.944.924 1.603v10.15c0 .659-.354 1.273-.924 1.604l-8.794 5.076c-.282.164-.6.247-.922.247"/></svg>
+        Node.js
+      </div>
+      <span class="logo-sep">·</span>
+      <div class="logo-item">
+        <svg viewBox="0 0 24 24" fill="#000"><path d="M11.572 0c-.176 0-.31.001-.358.007a19.76 19.76 0 0 1-.364.033C7.443.346 4.25 2.185 2.228 5.012a11.875 11.875 0 0 0-2.119 5.243c-.096.659-.108.854-.108 1.747s.012 1.089.108 1.748c.652 4.506 3.86 8.292 8.209 9.695.779.25 1.6.422 2.534.525.363.04 1.935.04 2.299 0 1.611-.178 2.977-.577 4.323-1.264.207-.106.247-.134.219-.158-.02-.013-.9-1.193-1.955-2.62l-1.919-2.592-2.404-3.558a338.739 338.739 0 0 0-2.422-3.556c-.009-.002-.018 1.579-.023 3.51-.007 3.38-.01 3.515-.052 3.595a.426.426 0 0 1-.206.214c-.075.037-.14.044-.495.044H7.81l-.108-.068a.438.438 0 0 1-.157-.171l-.05-.106.006-4.703.007-4.705.072-.092a.645.645 0 0 1 .174-.143c.096-.047.134-.051.54-.051.478 0 .558.018.682.154.035.038 1.337 1.999 2.895 4.361a10760.433 10760.433 0 0 0 4.735 7.17l1.9 2.879.096-.063a12.317 12.317 0 0 0 2.466-2.163 11.944 11.944 0 0 0 2.824-6.134c.096-.66.108-.854.108-1.748 0-.893-.012-1.088-.108-1.747-.652-4.506-3.859-8.292-8.208-9.695a12.597 12.597 0 0 0-2.499-.523A33.119 33.119 0 0 0 11.573 0z"/></svg>
+        Next.js
+      </div>
+      <span class="logo-sep">·</span>
+      <div class="logo-item">
+        <svg viewBox="0 0 24 24" fill="#F7DF1E"><rect width="24" height="24" rx="2" fill="#F7DF1E"/><path d="M6.48 17.86c.38.63.9 1.1 1.79 1.1.75 0 1.23-.37 1.23-.89 0-.62-.49-.84-1.32-1.2l-.45-.19c-1.31-.56-2.18-1.26-2.18-2.74 0-1.37 1.04-2.41 2.67-2.41 1.16 0 1.99.4 2.59 1.45l-1.42.91c-.31-.56-.65-.78-1.17-.78-.53 0-.87.34-.87.78 0 .54.34.76 1.12 1.1l.45.19c1.54.66 2.42 1.34 2.42 2.85 0 1.63-1.28 2.54-3 2.54-1.68 0-2.77-.8-3.3-1.85l1.44-.86zm7.25.21c.28.49.53.91 1.14.91.58 0 .95-.23.95-1.11v-6.02h1.81v6.04c0 1.83-1.07 2.66-2.64 2.66-1.41 0-2.23-.73-2.65-1.61l1.39-.87z" fill="#000"/></svg>
+        JavaScript
+      </div>
+      <span class="logo-sep">·</span>
+      <div class="logo-item">
+        <svg viewBox="0 0 24 24" fill="#38BDF8"><path d="M12.001 4.8c-3.2 0-5.2 1.6-6 4.8 1.2-1.6 2.6-2.2 4.2-1.8.913.228 1.565.89 2.288 1.624C13.666 10.618 15.027 12 18.001 12c3.2 0 5.2-1.6 6-4.8-1.2 1.6-2.6 2.2-4.2 1.8-.913-.228-1.565-.89-2.288-1.624C16.337 6.182 14.976 4.8 12.001 4.8zm-6 7.2c-3.2 0-5.2 1.6-6 4.8 1.2-1.6 2.6-2.2 4.2-1.8.913.228 1.565.89 2.288 1.624 1.177 1.194 2.538 2.576 5.512 2.576 3.2 0 5.2-1.6 6-4.8-1.2 1.6-2.6 2.2-4.2 1.8-.913-.228-1.565-.89-2.288-1.624C10.337 13.382 8.976 12 6.001 12z"/></svg>
+        Tailwind
+      </div>
+      <span class="logo-sep">·</span>
+      <div class="logo-item">
+        <svg viewBox="0 0 24 24" fill="#FF4154"><path d="M12 0L1.605 6v12L12 24l10.395-6V6L12 0zm6 16.59c0 .705-.646 1.29-1.35 1.29-.231 0-.469-.06-.675-.18l-4.32-2.505V19.5c0 .705-.646 1.29-1.35 1.29H9.99c-.705 0-1.35-.585-1.35-1.29v-4.29L4.32 17.7c-.21.12-.45.18-.675.18-.705 0-1.35-.585-1.35-1.29V7.41c0-.705.645-1.29 1.35-1.29.225 0 .465.06.675.18l3.645 2.1V4.5c0-.705.645-1.29 1.35-1.29H10.32c.705 0 1.35.585 1.35 1.29v4.29l3.645-2.1c.21-.12.45-.18.675-.18.705 0 1.35.585 1.35 1.29l-.34 9.18z"/></svg>
+        Figma
+      </div>
+      <span class="logo-sep">·</span>
+      <div class="logo-item">
+        <svg viewBox="0 0 24 24" fill="#FF9900"><path d="M13.527.099C6.955-.744.942 3.9.099 10.473c-.843 6.572 3.8 12.584 10.373 13.428 6.573.843 12.585-3.801 13.428-10.374C24.744 6.955 20.101.943 13.527.099zm.401 4.516c.29.29.29.762 0 1.053L12.052 7.54l1.875 1.874a.745.745 0 0 1-.527 1.271.742.742 0 0 1-.527-.218L11 8.592l-1.874 1.875a.742.742 0 0 1-1.053 0 .745.745 0 0 1 0-1.053L9.947 7.54 8.073 5.668a.745.745 0 0 1 1.053-1.053L11 6.49l1.875-1.875a.745.745 0 0 1 1.053 0z"/></svg>
+        AWS
+      </div>
+      <span class="logo-sep">·</span>
+      <div class="logo-item">
+        <svg viewBox="0 0 24 24" fill="#3776AB"><path d="M9.585 11.692h4.328s2.432.039 2.432-2.356V5.129s.371-2.238-4.295-2.238H8.386S4.51 2.718 4.51 6.295v1.81h5.075v.543H2.613s-2.614 0-2.614 3.557v3.511s-.39 3.567 3.378 3.567h1.262s.162 2.155 2.45 2.155h2.492s2.327.1 2.327-2.156v-1.822s.235-2.303-2.34-2.303H7.042s-1.341.02-1.341-1.26v-2.214s-.14-1.291 1.292-1.291h2.592zM8.16 2.925c.403 0 .73.327.73.73s-.327.73-.73.73-.73-.327-.73-.73.326-.73.73-.73zM14.41 12.304h4.328s2.432.039 2.432-2.356V6.13s.371-2.238-4.295-2.238H14.21s-3.864-.173-3.864 3.404v1.81h5.075v.543h-6.96s-2.614 0-2.614 3.557v3.511s-.39 3.567 3.378 3.567h1.262s.162 2.155 2.45 2.155h2.492s2.327.1 2.327-2.156v-1.822s.235-2.303-2.34-2.303H13.9s-1.341.02-1.341-1.26v-2.214s-.14-1.291 1.292-1.291h.558z"/></svg>
+        Python
+      </div>
+      <span class="logo-sep">·</span>
+      <div class="logo-item">
+        <svg viewBox="0 0 24 24" fill="#F05032"><path d="M23.546 10.93L13.067.452a1.55 1.55 0 0 0-2.188 0L8.708 2.627l2.76 2.76a1.838 1.838 0 0 1 2.327 2.341l2.658 2.66a1.838 1.838 0 0 1 1.9 3.039 1.837 1.837 0 0 1-2.6-2.581L13.099 8.08v6.828a1.836 1.836 0 0 1 .479 3.252 1.834 1.834 0 0 1-2.291-2.909 1.83 1.83 0 0 1 .602-.393V8.038a1.83 1.83 0 0 1-.602-.393 1.837 1.837 0 0 1-.033-2.6L8.553 2.345.454 10.448a1.55 1.55 0 0 0 0 2.187l10.48 10.478a1.549 1.549 0 0 0 2.187 0l10.425-10.424a1.55 1.55 0 0 0 0-2.187"/></svg>
+        Git
+      </div>
 
+      <!-- Set 2 (duplicate for infinite loop) -->
+      <div class="logo-item">
+        <svg viewBox="0 0 24 24" fill="#61DAFB"><path d="M12 9.861A2.139 2.139 0 1 0 12 14.139 2.139 2.139 0 1 0 12 9.861zM6.008 16.255l-.472-.12C2.018 15.246 0 13.737 0 11.996s2.018-3.25 5.536-4.139l.472-.12.121.468a23.53 23.53 0 0 0 1.2 3.19.5.5 0 0 1 0 .48 23.63 23.63 0 0 0-1.2 3.19l-.12.468zm-.52-1.6a10.6 10.6 0 0 1 .688-1.9 10.83 10.83 0 0 1-.688-1.9C3.394 11.2 2 12.016 2 11.996c0 .02 1.394.795 3.488 1.66zm-.52 3.13c-.28.287-.576.564-.885.826C5.49 19.502 5.91 20 6.272 20c.37 0 .693-.36 1.005-.88zm0 0"/></svg>
+        React
+      </div>
+      <span class="logo-sep">·</span>
+      <div class="logo-item">
+        <svg viewBox="0 0 24 24" fill="#3178C6"><path d="M0 12v12h24V0H0zm19.341-.956c.61.152 1.074.423 1.501.865.221.236.549.666.575.77.008.03-1.036.73-1.668 1.123-.023.015-.115-.084-.217-.236-.31-.45-.633-.644-1.128-.678-.728-.05-1.196.331-1.192.967a.88.88 0 0 0 .102.45c.16.331.458.53 1.39.933 1.719.74 2.454 1.227 2.911 1.92.51.773.625 2.008.278 2.926-.38.998-1.325 1.676-2.655 1.9-.411.073-1.386.062-1.828-.018-.964-.172-1.878-.648-2.442-1.272-.221-.243-.652-.88-.625-.925a6.27 6.27 0 0 1 .664-.414l.97-.56.222.332c.309.47.985.882 1.559.94.535.054 1.178-.024 1.523-.2a.926.926 0 0 0 .463-.648c0-.248-.034-.357-.17-.542-.176-.242-.534-.447-1.56-.89-1.172-.5-1.676-.812-2.135-1.306a2.95 2.95 0 0 1-.621-1.26c-.086-.45-.061-1.584.04-2.031.348-1.503 1.572-2.548 3.164-2.763.547-.073 1.818-.044 2.358.085z"/></svg>
+        TypeScript
+      </div>
+      <span class="logo-sep">·</span>
+      <div class="logo-item">
+        <svg viewBox="0 0 24 24" fill="#339933"><path d="M11.998 24c-.321 0-.641-.084-.922-.247l-2.936-1.737c-.438-.245-.224-.332-.08-.383.585-.203.703-.25 1.328-.604.065-.037.151-.023.218.017l2.256 1.339c.082.045.198.045.272 0l8.795-5.076c.082-.047.134-.141.134-.238V6.921c0-.099-.052-.19-.137-.242l-8.791-5.072c-.081-.047-.189-.047-.271 0L3.075 6.68c-.087.05-.141.144-.141.242v10.15c0 .097.054.189.139.235l2.409 1.392c1.307.654 2.108-.116 2.108-.891V7.787c0-.142.114-.253.256-.253h1.115c.139 0 .255.111.255.253v10.021c0 1.745-.95 2.745-2.604 2.745-.508 0-.909 0-2.026-.551L2.28 18.675c-.57-.329-.922-.943-.922-1.604V6.921c0-.659.352-1.275.922-1.603l8.795-5.082c.557-.315 1.296-.315 1.848 0l8.794 5.082c.57.329.924.944.924 1.603v10.15c0 .659-.354 1.273-.924 1.604l-8.794 5.076c-.282.164-.6.247-.922.247"/></svg>
+        Node.js
+      </div>
+      <span class="logo-sep">·</span>
+      <div class="logo-item">
+        <svg viewBox="0 0 24 24" fill="#000"><path d="M11.572 0c-.176 0-.31.001-.358.007a19.76 19.76 0 0 1-.364.033C7.443.346 4.25 2.185 2.228 5.012a11.875 11.875 0 0 0-2.119 5.243c-.096.659-.108.854-.108 1.747s.012 1.089.108 1.748c.652 4.506 3.86 8.292 8.209 9.695.779.25 1.6.422 2.534.525.363.04 1.935.04 2.299 0 1.611-.178 2.977-.577 4.323-1.264.207-.106.247-.134.219-.158-.02-.013-.9-1.193-1.955-2.62l-1.919-2.592-2.404-3.558a338.739 338.739 0 0 0-2.422-3.556c-.009-.002-.018 1.579-.023 3.51-.007 3.38-.01 3.515-.052 3.595a.426.426 0 0 1-.206.214c-.075.037-.14.044-.495.044H7.81l-.108-.068a.438.438 0 0 1-.157-.171l-.05-.106.006-4.703.007-4.705.072-.092a.645.645 0 0 1 .174-.143c.096-.047.134-.051.54-.051.478 0 .558.018.682.154.035.038 1.337 1.999 2.895 4.361a10760.433 10760.433 0 0 0 4.735 7.17l1.9 2.879.096-.063a12.317 12.317 0 0 0 2.466-2.163 11.944 11.944 0 0 0 2.824-6.134c.096-.66.108-.854.108-1.748 0-.893-.012-1.088-.108-1.747-.652-4.506-3.859-8.292-8.208-9.695a12.597 12.597 0 0 0-2.499-.523A33.119 33.119 0 0 0 11.573 0z"/></svg>
+        Next.js
+      </div>
+      <span class="logo-sep">·</span>
+      <div class="logo-item">
+        <svg viewBox="0 0 24 24" fill="#F7DF1E"><rect width="24" height="24" rx="2" fill="#F7DF1E"/><path d="M6.48 17.86c.38.63.9 1.1 1.79 1.1.75 0 1.23-.37 1.23-.89 0-.62-.49-.84-1.32-1.2l-.45-.19c-1.31-.56-2.18-1.26-2.18-2.74 0-1.37 1.04-2.41 2.67-2.41 1.16 0 1.99.4 2.59 1.45l-1.42.91c-.31-.56-.65-.78-1.17-.78-.53 0-.87.34-.87.78 0 .54.34.76 1.12 1.1l.45.19c1.54.66 2.42 1.34 2.42 2.85 0 1.63-1.28 2.54-3 2.54-1.68 0-2.77-.8-3.3-1.85l1.44-.86zm7.25.21c.28.49.53.91 1.14.91.58 0 .95-.23.95-1.11v-6.02h1.81v6.04c0 1.83-1.07 2.66-2.64 2.66-1.41 0-2.23-.73-2.65-1.61l1.39-.87z" fill="#000"/></svg>
+        JavaScript
+      </div>
+      <span class="logo-sep">·</span>
+      <div class="logo-item">
+        <svg viewBox="0 0 24 24" fill="#38BDF8"><path d="M12.001 4.8c-3.2 0-5.2 1.6-6 4.8 1.2-1.6 2.6-2.2 4.2-1.8.913.228 1.565.89 2.288 1.624C13.666 10.618 15.027 12 18.001 12c3.2 0 5.2-1.6 6-4.8-1.2 1.6-2.6 2.2-4.2 1.8-.913-.228-1.565-.89-2.288-1.624C16.337 6.182 14.976 4.8 12.001 4.8zm-6 7.2c-3.2 0-5.2 1.6-6 4.8 1.2-1.6 2.6-2.2 4.2-1.8.913.228 1.565.89 2.288 1.624 1.177 1.194 2.538 2.576 5.512 2.576 3.2 0 5.2-1.6 6-4.8-1.2 1.6-2.6 2.2-4.2 1.8-.913-.228-1.565-.89-2.288-1.624C10.337 13.382 8.976 12 6.001 12z"/></svg>
+        Tailwind
+      </div>
+      <span class="logo-sep">·</span>
+      <div class="logo-item">
+        <svg viewBox="0 0 24 24" fill="#FF4154"><path d="M12 0L1.605 6v12L12 24l10.395-6V6L12 0zm6 16.59c0 .705-.646 1.29-1.35 1.29-.231 0-.469-.06-.675-.18l-4.32-2.505V19.5c0 .705-.646 1.29-1.35 1.29H9.99c-.705 0-1.35-.585-1.35-1.29v-4.29L4.32 17.7c-.21.12-.45.18-.675.18-.705 0-1.35-.585-1.35-1.29V7.41c0-.705.645-1.29 1.35-1.29.225 0 .465.06.675.18l3.645 2.1V4.5c0-.705.645-1.29 1.35-1.29H10.32c.705 0 1.35.585 1.35 1.29v4.29l3.645-2.1c.21-.12.45-.18.675-.18.705 0 1.35.585 1.35 1.29l-.34 9.18z"/></svg>
+        Figma
+      </div>
+      <span class="logo-sep">·</span>
+      <div class="logo-item">
+        <svg viewBox="0 0 24 24" fill="#FF9900"><path d="M13.527.099C6.955-.744.942 3.9.099 10.473c-.843 6.572 3.8 12.584 10.373 13.428 6.573.843 12.585-3.801 13.428-10.374C24.744 6.955 20.101.943 13.527.099zm.401 4.516c.29.29.29.762 0 1.053L12.052 7.54l1.875 1.874a.745.745 0 0 1-.527 1.271.742.742 0 0 1-.527-.218L11 8.592l-1.874 1.875a.742.742 0 0 1-1.053 0 .745.745 0 0 1 0-1.053L9.947 7.54 8.073 5.668a.745.745 0 0 1 1.053-1.053L11 6.49l1.875-1.875a.745.745 0 0 1 1.053 0z"/></svg>
+        AWS
+      </div>
+      <span class="logo-sep">·</span>
+      <div class="logo-item">
+        <svg viewBox="0 0 24 24" fill="#3776AB"><path d="M9.585 11.692h4.328s2.432.039 2.432-2.356V5.129s.371-2.238-4.295-2.238H8.386S4.51 2.718 4.51 6.295v1.81h5.075v.543H2.613s-2.614 0-2.614 3.557v3.511s-.39 3.567 3.378 3.567h1.262s.162 2.155 2.45 2.155h2.492s2.327.1 2.327-2.156v-1.822s.235-2.303-2.34-2.303H7.042s-1.341.02-1.341-1.26v-2.214s-.14-1.291 1.292-1.291h2.592zM8.16 2.925c.403 0 .73.327.73.73s-.327.73-.73.73-.73-.327-.73-.73.326-.73.73-.73zM14.41 12.304h4.328s2.432.039 2.432-2.356V6.13s.371-2.238-4.295-2.238H14.21s-3.864-.173-3.864 3.404v1.81h5.075v.543h-6.96s-2.614 0-2.614 3.557v3.511s-.39 3.567 3.378 3.567h1.262s.162 2.155 2.45 2.155h2.492s2.327.1 2.327-2.156v-1.822s.235-2.303-2.34-2.303H13.9s-1.341.02-1.341-1.26v-2.214s-.14-1.291 1.292-1.291h.558z"/></svg>
+        Python
+      </div>
+      <span class="logo-sep">·</span>
+      <div class="logo-item">
+        <svg viewBox="0 0 24 24" fill="#F05032"><path d="M23.546 10.93L13.067.452a1.55 1.55 0 0 0-2.188 0L8.708 2.627l2.76 2.76a1.838 1.838 0 0 1 2.327 2.341l2.658 2.66a1.838 1.838 0 0 1 1.9 3.039 1.837 1.837 0 0 1-2.6-2.581L13.099 8.08v6.828a1.836 1.836 0 0 1 .479 3.252 1.834 1.834 0 0 1-2.291-2.909 1.83 1.83 0 0 1 .602-.393V8.038a1.83 1.83 0 0 1-.602-.393 1.837 1.837 0 0 1-.033-2.6L8.553 2.345.454 10.448a1.55 1.55 0 0 0 0 2.187l10.48 10.478a1.549 1.549 0 0 0 2.187 0l10.425-10.424a1.55 1.55 0 0 0 0-2.187"/></svg>
+        Git
+      </div>
+    </div>
+  </div>
+</div>
 
-<section id="works">
+<!-- WORKS -->
+<section class="works-sec" id="works">
   <p class="section-label">Selected works</p>
-  <h2 class="section-title">A place to display your <em>masterpiece.</em></h2>
+  <h2 class="section-title">Things I've <em>built.</em></h2>
   <div class="works-grid">
     <div class="work-card reveal"><div class="work-bg"></div><div class="work-overlay"><span class="work-label">Brand Identity</span></div></div>
     <div class="work-card reveal"><div class="work-bg"></div><div class="work-overlay"><span class="work-label">UI Design</span></div></div>
@@ -247,27 +312,48 @@ footer{text-align:center;padding:32px 24px;font-size:.78rem;color:#aaa;border-to
   </div>
 </section>
 
-<section id="contact" style="padding-bottom:100px">
+<!-- CONTACT -->
+<section class="contact-sec" id="contact" style="padding-bottom:100px">
   <div class="contact-block reveal">
-    <h2>Gateway to great work.</h2>
-    <p>Let's collaborate and build something remarkable together.</p>
-    <a href="mailto:jane@example.com" class="btn-white">✉ Get in Touch</a>
+    <h2>Let's build something great.</h2>
+    <p>Open to freelance, collabs, or full-time opportunities.</p>
+    <a href="mailto:nabashakti@example.com" class="btn-white">✉ Get in Touch</a>
   </div>
 </section>
 
-<footer>© 2025 Nabashakti · Built with love &amp; HTML</footer>
+<footer>© 2025 naav · Nabashakti · Built with love &amp; HTML</footer>
 
 <script>
-const words=["Building","digital","experiences","that","feel","alive."];
-const title=document.getElementById('heroTitle');
-words.forEach((w,i)=>{
-  const d=document.createElement('div');
-  d.className='word'+(w==='alive.'?' accent-word':'');
-  d.innerHTML=`<span style="animation-delay:${0.2+i*0.12}s">${w}</span>`;
-  title.appendChild(d);
-  if(w==='digital'||w==='that') title.appendChild(document.createElement('br'));
+// Grid spotlight
+const grid=document.getElementById('grid');
+document.addEventListener('mousemove',e=>{
+  const v=`radial-gradient(circle 180px at ${e.clientX}px ${e.clientY}px,black 0%,transparent 100%)`;
+  grid.style.webkitMaskImage=v;grid.style.maskImage=v;
+});
+document.addEventListener('mouseleave',()=>{
+  const v=`radial-gradient(circle 180px at -999px -999px,black 0%,transparent 100%)`;
+  grid.style.webkitMaskImage=v;grid.style.maskImage=v;
 });
 
+// Cycling words
+const words=['use.','feel.','remember.','return to.','love.','choose.'];
+let idx=0;
+const el=document.getElementById('cycleWord');
+function cycle(){
+  idx=(idx+1)%words.length;
+  const exit=el.cloneNode(true);
+  exit.classList.add('cycle-exit');
+  exit.style.animation='';
+  el.parentNode.appendChild(exit);
+  requestAnimationFrame(()=>requestAnimationFrame(()=>{exit.style.animation='slideOut .4s cubic-bezier(.22,1,.36,1) forwards'}));
+  el.textContent=words[idx];
+  el.style.animation='none';
+  requestAnimationFrame(()=>requestAnimationFrame(()=>{el.style.animation='slideIn .5s cubic-bezier(.22,1,.36,1)'}));
+  setTimeout(()=>exit.remove(),450);
+}
+setInterval(cycle,2400);
+
+// Scroll reveal
 const obs=new IntersectionObserver(entries=>{
   entries.forEach(e=>{
     if(e.isIntersecting){
@@ -279,23 +365,6 @@ const obs=new IntersectionObserver(entries=>{
 },{threshold:0.1});
 document.querySelectorAll('section').forEach(s=>obs.observe(s));
 document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
-
-// 3D tilt — desktop only
-const stack=document.getElementById('cardStack');
-stack.addEventListener('mousemove',e=>{
-  const r=stack.getBoundingClientRect();
-  const x=(e.clientX-r.left-r.width/2)/(r.width/2);
-  const y=(e.clientY-r.top-r.height/2)/(r.height/2);
-  stack.style.transform=`perspective(800px) rotateY(${x*8}deg) rotateX(${-y*6}deg)`;
-});
-stack.addEventListener('mouseleave',()=>{stack.style.transform='perspective(800px) rotateY(0) rotateX(0)'});
-
-// Touch tap to spread cards on mobile
-let spread=false;
-stack.addEventListener('click',()=>{
-  spread=!spread;
-  stack.classList.toggle('hover-spread',spread);
-});
 </script>
 </body>
 </html>
